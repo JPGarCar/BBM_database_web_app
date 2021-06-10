@@ -89,12 +89,12 @@ $record = $allRecordsFound[0];
                                 <?php else: ?>
                                     <td
                                     <?php
-                                        if (formatField($field) === "Latitude") {echo "id='Latitude'"; $lat = $allRecordsFound[0]->getField($field);}
-                                        if (formatField($field) === "Longitude") {echo "id='Longitude'"; $long = $allRecordsFound[0]->getField($field);}
+                                        if (formatField($field) === "Latitude") {echo "id='Latitude'"; $lat = $record->getField($field);}
+                                        if (formatField($field) === "Longitude") {echo "id='Longitude'"; $long = $record->getField($field);}
                                     ?>
                                     >
                                 <?php endif; ?>
-                                <?php echo $allRecordsFound[0]->getField($field) ?>
+                                <?php echo $record->getField($field) ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -127,14 +127,14 @@ $record = $allRecordsFound[0];
                             <?php
                             if (DATABASE === 'fish') {
 
-                                $numOfCards = $allRecordsFound[0]->getField("iffrCardNb");
+                                $numOfCards = $record->getField("iffrCardNb");
 
                                 for ($num = 1; $num <= $numOfCards; $num++) {
                                     $num_padded = sprintf("%02d", $num);
                                     $cardName = "card".$num_padded;
 
-                                    $url =  'https://open.library.ubc.ca/media/download/jpg/fisheries/'.$allRecordsFound[0]->getField($cardName).'/0';
-                                    $linkToWebsite =  'https://open.library.ubc.ca/collections/fisheries/items/'.$allRecordsFound[0]->getField($cardName);
+                                    $url =  'https://open.library.ubc.ca/media/download/jpg/fisheries/'.$record->getField($cardName).'/0';
+                                    $linkToWebsite =  'https://open.library.ubc.ca/collections/fisheries/items/'.$record->getField($cardName);
 
                                     if (@getimagesize($url)[0] >0 && @getimagesize($url)[1] > 0) {
 
@@ -155,15 +155,15 @@ $record = $allRecordsFound[0];
                             }
                             else if (DATABASE === 'entomology') {
 
-                                $genusPage = getGenusPage($allRecordsFound[0]);
-                                $genusSpecies = getGenusSpecies($allRecordsFound[0]);
-                                $semnumber = $allRecordsFound[0]->getField('SEM #');
+                                $genusPage = getGenusPage($record);
+                                $genusSpecies = getGenusSpecies($record);
+                                $semnumber = $record->getField('SEM #');
                                 $foundImage = false;
 
                                 if($foundImage==false) {
                                     echo '<div style="height: 300px; text-align:center; line-height:300px;">';
-                                        $order = $allRecordsFound[0]->getField('Order');
-                                        $fam=$allRecordsFound[0]->getField("Family");
+                                        $order = $record->getField('Order');
+                                        $fam=$record->getField("Family");
 
                                         echo ' <a href="https://www.zoology.ubc.ca/entomology/main/'.$order.'/'.$fam.'/" style="text-align:center;"> 
                                         <role="button" class="btn btn-custom" id="showAll" > See more of '.$fam.' here!</button> </a> ';
@@ -174,7 +174,7 @@ $record = $allRecordsFound[0];
                             else {
                                 $validDb = false;
                                 if (DATABASE == 'avian' ||DATABASE == 'herpetology' || DATABASE == 'mammal') {
-                                    $tableNamesObj = $allRecordsFound[0]->getRelatedSet('Photographs');
+                                    $tableNamesObj = $record->getRelatedSet('Photographs');
 
                                     // if images, type = 'array'; else 'object'
                                     if (gettype($tableNamesObj)=='array') {
@@ -254,17 +254,13 @@ $record = $allRecordsFound[0];
                 <!-- entomology special link to more images -->
                 <div class="row">
                     <?php
-                    if (DATABASE === 'entomology'){
-                        if ($foundImage===true){
-                            $fam=$allRecordsFound[0]->getField("Family");
-                            $subfam=$allRecordsFound[0]->getField("Subfamily");
-                            if ($subfam!==""){
-                                echo '<a href="'.$url.'" style="text-align:center;"> 
-                                    <button class="btn btn-custom" id="showAll" > See more '.$subfam.' here!</button> </a>';
-                            } else {
-                                echo ' <a href="'.$url.'" style="text-align:center;"> 
-                                    <role="button" class="btn btn-custom" id="showAll" > See more '.$fam.' here!</button> </a> ';
-                            }
+                    if (DATABASE === 'entomology' and $foundImage === true){
+                        try {
+                            $family = $record->getField('Family');
+                            echo ' <a href="'.$url.'" style="text-align:center;"> 
+                                <role="button" class="btn btn-custom" id="showAll" > See more '.$family.' here!</button> </a> ';
+                        } catch (FileMakerException $e)  {
+                            // Do nothing
                         }
                     }
                     ?>
