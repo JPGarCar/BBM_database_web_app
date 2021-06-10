@@ -125,6 +125,9 @@ $record = $allRecordsFound[0];
                     <div class = "col">
                         <div class = "slideshow-container">
                             <?php
+                            # start without any image found
+                            $foundImage = false;
+
                             if (DATABASE === 'fish') {
 
                                 $numOfCards = $record->getField("iffrCardNb");
@@ -155,21 +158,58 @@ $record = $allRecordsFound[0];
                             }
                             else if (DATABASE === 'entomology') {
 
-                                $genusPage = getGenusPage($record);
-                                $genusSpecies = getGenusSpecies($record);
-                                $semnumber = $record->getField('SEM #');
-                                $foundImage = false;
-
-                                if($foundImage==false) {
-                                    echo '<div style="height: 300px; text-align:center; line-height:300px;">';
-                                        $order = $record->getField('Order');
-                                        $fam=$record->getField("Family");
-
-                                        echo ' <a href="https://www.zoology.ubc.ca/entomology/main/'.$order.'/'.$fam.'/" style="text-align:center;"> 
-                                        <role="button" class="btn btn-custom" id="showAll" > See more of '.$fam.' here!</button> </a> ';
-
-                                    echo '</div>';
+                                try {
+                                    $familyUrl = getGenusPage($record);
+                                    $genus = $record->getField('Genus');
+                                    $specie = $record->getField('Species');
+                                    $fam= $record->getField("Family");
+                                } catch (FileMakerException $e) {
+                                    $_SESSION['error'] = 'There was an error with File Maker Pro fields. Please contact the admin.';
+                                    header('Location: error.php');
+                                    exit;
                                 }
+
+                                # scrap the entomology website for images
+                                # source https://www.ostraining.com/blog/coding/extract-image-php/
+                                $html = file_get_contents($familyUrl);
+                                preg_match_all('|<img.*?src=[\'"](.*?)[\'"].*?>|i',$html, $matches);
+                                $rawImageNameList = $matches[1];
+
+                                # only use those images with the genus and specie name in it
+                                $imageNames = array_filter(
+                                    $rawImageNameList,
+                                    function ($imgUrl) use($genus, $specie) {
+                                        return str_contains($imgUrl, $genus) and str_contains($imgUrl,  $specie);
+                                    }
+                                );
+
+                                if (sizeof($imageNames) > 0) {
+                                    $foundImage = true;
+                                    # print each image for the specie in a div with the slides class
+                                    foreach ($imageNames as $imageName) {
+                                        $imageUrl = $familyUrl . $imageName;
+                                        echo "
+                                        <div class='mySlides'>
+                                            <a href='$imageUrl' target='_blank'>
+                                                <img class='img-fluid minHeigh' src='$imageUrl' alt='Image for $genus - $specie'>
+                                            </a>
+                                        </div>
+                                    ";
+                                    }
+
+                                    # echo the slider controllers
+                                    echo '<a class="prevbutton" onclick="plusSlides(-1)">&#10094;</a>';
+                                    echo '<a class="nextbutton" onclick="plusSlides(1)">&#10095;</a>';
+                                }
+
+                                # echo special button to move to entomology website
+                                echo "
+                                        <div class='p-2'>
+                                            <a href=$familyUrl class='text-center' target='_blank'>
+                                                <button class='btn btn-custm' id='showAll'> See more of $fam here! </button>
+                                            </a>
+                                        </div>
+                                    ";
                             }
                             else {
                                 $validDb = false;
@@ -218,8 +258,8 @@ $record = $allRecordsFound[0];
                         </div>
 
                         <!-- Slideshow UI controller -->
-                        <div style="text-align:center">
-                            <?php // adds the dots to the slideshow
+                        <div class="text-center">
+                            <?php # adds the dots to the slideshow
                               if (DATABASE === 'fish') {
                                 for ($num=1; $num<=$numOfCards; $num++){
                                   echo '<span class="dot" onclick="currentSlide('.$num.')"></span>';
@@ -237,33 +277,14 @@ $record = $allRecordsFound[0];
                                   $num++;
                                 }
                             }
-                              if (DATABASE === 'entomology'){
-                                if ($foundImage===true){
-                                    $images = 0;
-                                    for ($num=1; $num<=sizeof($images); $num++){
-                                      echo '<span class="dot" onclick="currentSlide('.$num.')"></span>';
-                                    }
-
-                                }
-                                 }
+                              if (DATABASE === 'entomology' and $foundImage === true and isset($imageNames)) {
+                                  for ($num = 1; $num <= sizeof($imageNames); $num++){
+                                    echo '<span class="dot" onclick="currentSlide('.$num.')"></span>';
+                                  }
+                              }
                             ?>
                         </div>
                     </div>
-                </div>
-
-                <!-- entomology special link to more images -->
-                <div class="row">
-                    <?php
-                    if (DATABASE === 'entomology' and $foundImage === true){
-                        try {
-                            $family = $record->getField('Family');
-                            echo ' <a href="'.$url.'" style="text-align:center;"> 
-                                <role="button" class="btn btn-custom" id="showAll" > See more '.$family.' here!</button> </a> ';
-                        } catch (FileMakerException $e)  {
-                            // Do nothing
-                        }
-                    }
-                    ?>
                 </div>
             </div>
         </div>
