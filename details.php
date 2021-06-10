@@ -130,30 +130,53 @@ $record = $allRecordsFound[0];
 
                             if (DATABASE === 'fish') {
 
+                                # get the image urls from the cards TODO ask what are these cards?
                                 $numOfCards = $record->getField("iffrCardNb");
+                                $specie = $record->getField("Species");
+
+                                $imageUrls = [];
 
                                 for ($num = 1; $num <= $numOfCards; $num++) {
                                     $num_padded = sprintf("%02d", $num);
                                     $cardName = "card".$num_padded;
 
-                                    $url =  'https://open.library.ubc.ca/media/download/jpg/fisheries/'.$record->getField($cardName).'/0';
-                                    $linkToWebsite =  'https://open.library.ubc.ca/collections/fisheries/items/'.$record->getField($cardName);
-
-                                    if (@getimagesize($url)[0] >0 && @getimagesize($url)[1] > 0) {
-
-                                        echo '<div class="mySlides">';
-
-                                        echo '<a href ='. htmlspecialchars($linkToWebsite).' target="_blank" rel="noopener noreferrer">'.
-                                        '<img id = "fish" class="img-fluid minHeight" src="'.htmlspecialchars($url) .'" alt="Image of the specimen"></a>';
-
-                                    } else {
-                                        echo '<div style="height: 300px; text-align:center; line-height:300px;">';
-                                        echo '<span style="">No picture found for this record</span>';
+                                    try {
+                                        $cardFieldValue = $record->getField($cardName);
+                                    } catch (FileMakerException $e) {
+                                        continue;
                                     }
-                                    echo '</div>';
+
+                                    $url =  'https://open.library.ubc.ca/media/download/jpg/fisheries/'.$cardFieldValue.'/0';
+                                    $linkToWebsite =  'https://open.library.ubc.ca/collections/fisheries/items/'.$cardFieldValue;
+
+                                    $imageUrls[$linkToWebsite] = $url;
                                 }
-                              echo '<a class="prevbutton" onclick="plusSlides(-1)">&#10094;</a>';
-                              echo '<a class="nextbutton" onclick="plusSlides(1)">&#10095;</a>';
+
+                                # for each image, add it to the slider
+                                foreach ($imageUrls as $webUrl => $imageUrl) {
+                                    if (@getimagesize($imageUrl)[0] > 0 && @getimagesize($imageUrl)[1] > 0) {
+                                        $websiteLink = htmlspecialchars($webUrl);
+                                        $imgLink = htmlspecialchars($imageUrl);
+                                        echo "
+                                            <div class='mySlides'>
+                                                <a href='$websiteLink' target='_blank'><img class='img-fluid' src='$imgLink' alt='Image for $specie'></a>
+                                            </div>
+                                        ";
+
+                                    }
+                                }
+
+                                if (sizeof($imageUrls) <= 0) {
+                                    echo "
+                                            <div class='text-center'>
+                                                <span> No picture found for this record</span>
+                                            </div>
+                                        ";
+                                } else {
+                                    # echo the slider controllers
+                                    echo '<a class="prevbutton" onclick="plusSlides(-1)">&#10094;</a>';
+                                    echo '<a class="nextbutton" onclick="plusSlides(1)">&#10095;</a>';
+                                }
 
                             }
                             else if (DATABASE === 'entomology') {
