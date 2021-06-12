@@ -29,7 +29,7 @@
     }
     // exit;
 ?>
-<link rel="stylesheet" href="css/render.css">
+<link rel="stylesheet" href="public/css/render.css">
 <!DOCTYPE html>
 <html>
     <head>
@@ -48,6 +48,6 @@
         ?>
 
         <?php FooterWidget('images/beatyLogo.png'); ?>
-        <script src="js/process.js"> </script>
+        <script src="public/js/process.js"> </script>
     </body>
 </html>

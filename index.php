@@ -12,7 +12,7 @@
         ?>
 
         <!---Link to the CSS for this page--->
-        <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="public/css/index.css">
     </head>
 
     <body class="container-fluid no-padding">

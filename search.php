@@ -41,10 +41,10 @@ define("FIELDS", array_diff($allFieldNames, $ignoreValues));
 
           HeaderWidget('Search');
         ?>
-        <link rel="stylesheet" href="css/search.css">
+        <link rel="stylesheet" href="public/css/search.css">
 
         <!-- scripts -->
-        <script type="text/javascript" src="js/process.js"></script>
+        <script type="text/javascript" src="public/js/process.js"></script>
     </head>
 
     <body class="container-fluid no-padding">
@@ -331,7 +331,7 @@ define("FIELDS", array_diff($allFieldNames, $ignoreValues));
                                             <div id = "sample-map" class = "col-xl-6 d-flex justify-content-center">
                                                 <div id="viewDiv"></div>
                                                 <script src="https://herbweb.botany.ubc.ca/arcgis_js_api/library/4.10/dojo/dojo.js"></script>
-                                                <script src="js/map.js"></script>
+                                                <script src="public/js/map.js"></script>
                                             </div>
                                         </div>
                                     </div>

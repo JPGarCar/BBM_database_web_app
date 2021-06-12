@@ -53,7 +53,7 @@ try {
             require_once('partials/widgets.php');
             HeaderWidget('Search Table');
         ?>
-        <link rel="stylesheet" href="css/render.css">
+        <link rel="stylesheet" href="public/css/render.css">
     </head>
 
     <body class="container-fluid no-padding">
