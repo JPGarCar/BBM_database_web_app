@@ -92,6 +92,6 @@ try {
         </div>
 
         <!-- footer -->
-        <?php FooterWidget(imgSrc: 'images/beatyLogo.png'); ?>
+        <?php FooterWidget(imgSrc: 'public/images/beatyLogo.png'); ?>
     </body>
 </html>

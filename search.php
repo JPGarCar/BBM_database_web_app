@@ -127,7 +127,7 @@ define("FIELDS", array_diff($allFieldNames, $ignoreValues));
                             if(DATABASE === 'entomology'){
                                 echo '
                                     <div id="entoSite" class="row no-gutters">
-                                        <div class="col-sm-12" style="background: url(images/entomologyBannerImages/rotator.php) no-repeat center center; background-size: 100% auto; text-align: center; color: white;">
+                                        <div class="col-sm-12" style="background: url(public/images/entomologyBannerImages/rotator.php) no-repeat center center; background-size: 100% auto; text-align: center; color: white;">
                                             <div style ="margin-top:30px;margin-bottom:30px;">
                                                 <a href="https://www.zoology.ubc.ca/entomology/" style="text-decoration: none; color: white;">
                                                     <p>Welcome to the</p><h3>SPENCER ENTOMOLOGICAL COLLECTION</h3>
@@ -345,6 +345,6 @@ define("FIELDS", array_diff($allFieldNames, $ignoreValues));
         </div>
 
         <!-- footer -->
-        <?php FooterWidget(imgSrc: 'images/beatyLogo.png'); ?>
+        <?php FooterWidget(imgSrc: 'public/images/beatyLogo.png'); ?>
     </body>
 </html>

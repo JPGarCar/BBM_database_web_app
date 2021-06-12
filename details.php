@@ -291,7 +291,7 @@ $record = $allRecordsFound[0];
         </div>
     </div>
 
-    <?php FooterWidget('images/beatyLogo.png') ;?>
+    <?php FooterWidget('public/images/beatyLogo.png') ;?>
 
     <!-- Scripts to handle slides -->
     <script>
