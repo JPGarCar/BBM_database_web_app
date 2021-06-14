@@ -1,7 +1,5 @@
 <?php
 
-require_once ('vendor/autoload.php');
-
 use airmoi\FileMaker\FileMaker;
 use airmoi\FileMaker\FileMakerException;
 use airmoi\FileMaker\Object\Layout;
