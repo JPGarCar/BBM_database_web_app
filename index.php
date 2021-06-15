@@ -30,7 +30,7 @@
             </div>
 
             <!--- Row for all the content--->
-            <div class="row no-gutters">
+            <div class="row g-0">
 
                 <!--- First column of databases--->
                 <div class="col-sm-3">
@@ -41,7 +41,7 @@
                     </div>
 
                     <!--- Herbarium links and content--->
-                    <div class="column-body">
+                    <div class="mx-3">
                     <?php
                              DatabaseCard(
                                 title: 'Algae',
@@ -90,7 +90,7 @@
                     </div>
 
                     <!--- Vertebrate image and link content--->
-                    <div class="column-body">
+                    <div class="mx-3">
                         <?php
                              DatabaseCard(
                                 title: 'Avian',
@@ -132,7 +132,7 @@
                     </div>
 
                     <!--- Invertebrate column content--->
-                    <div class="column-body">
+                    <div class="mx-3">
                         <?php
                              DatabaseCard(
                                 title: 'Entomology',
@@ -168,7 +168,7 @@
                     </div>
 
                     <!--- Fossil Content--->
-                    <div class="column-body">
+                    <div class="mx-3">
                         <?php
                              DatabaseCard(
                                 title: 'Fossils',
