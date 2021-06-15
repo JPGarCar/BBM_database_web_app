@@ -42,7 +42,7 @@ function TitleBanner(string $databaseName) {
 function DatabaseCard(string $title, string $img_source, string $href, string $background_color, string $alt='') {
     echo '
         <!--- '. $title .' image and link--->
-        <div class="col d-flex justify-content-center">
+        <div class="justify-content-center">
             <a href='. $href .'>
                 <figure class="text-center" style="background: '. $background_color .'">
                     <img class="img-fluid img-sized" src='. $img_source .' alt='. $alt .'>
@@ -158,14 +158,10 @@ function NextBackButtons($pages, $parts, $amountOfRecords, $numRes) {
 function FooterWidget(string $imgSrc) {
     echo '
         <!-- The footer for all pages -->
-        <div id="footer" class="row no-gutters" style="margin-top: 15px;">
-            <div class="col-sm-12 text-center">
-                <div id="footer-section" style="padding: 15px 0;">
-                    <a href="https://beatymuseum.ubc.ca/">
-                    <img src='.$imgSrc.' width = "300px" alt="Image for the Beaty Biodiversity Museum">
-                    </a>
-                </div>
-            </div>
+        <div class="container-fluid text-center p-0 red-background">
+            <a href="https://beatymuseum.ubc.ca/" role="button">
+                <img src='.$imgSrc.' width="300px" alt="Image for the Beaty Biodiversity Museum" class="m-4">
+            </a>
         </div>
     ';
 }
@@ -192,13 +188,6 @@ function HeaderWidget(string $title = '') {
         
         <!-- js scripts -->
         <script src="public/bootstrap-v5/js/bootstrap.bundle.min.js"></script>
-        
-        <style>
-            body {
-                font-family: Arial, Helvetica, sans-serif;
-            }
-        </style>
-    
     ';
 }
 
@@ -209,7 +198,7 @@ function HeaderWidget(string $title = '') {
 function Navbar() {
     echo '
         <!-- The navigation bar for all pages. Contains dropdowns with links to all possible databases -->
-        <nav class="navbar navbar-expand-lg navbar-dark" style="background: #CC2229;">
+        <nav class="navbar navbar-expand-lg navbar-dark red-background">
             
             <!-- BMD title sends to main page -->
             <a class="navbar-brand" href="index.php"><h3>Beaty Museum Databases</h3></a>
