@@ -34,11 +34,6 @@ html,body {
     color: #ffffff;
 }
 
-#header, #footer {
-    margin-left: 0px;
-    margin-right: 0px;
-}
-
 #page-content {
     flex: 1 0 auto;
 }
