@@ -157,7 +157,6 @@ function NextBackButtons($pages, $parts, $amountOfRecords, $numRes) {
  */
 function FooterWidget(string $imgSrc) {
     echo '
-        <!-- The footer for all pages -->
         <div class="container-fluid text-center p-0 red-background">
             <a href="https://beatymuseum.ubc.ca/" role="button">
                 <img src='.$imgSrc.' width="300px" alt="Image for the Beaty Biodiversity Museum" class="m-4">

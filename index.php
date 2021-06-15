@@ -18,12 +18,12 @@
         <link rel="stylesheet" href="public/css/index.css">
     </head>
 
-    <body class="container-fluid p-0">
+    <body>
         <!--- Contains the navbar on the top of every page--->
         <?php Navbar(); ?>
 
         <!--- Div for the main content of the page--->
-        <div id="main">
+        <div class="container-fluid flex-grow-1 p-0">
             <!--- The main title of the page under the navbar--->
             <div class="container-fluid p-0">
                 <h1>Database List</h1>

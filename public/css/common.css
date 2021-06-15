@@ -3,6 +3,11 @@ html,body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+body {
+    display: flex;
+    flex-flow: column;
+}
+
 /* change the link color */
 .navbar-dark .navbar-nav .nav-link {
     color:  #ffffff;
@@ -32,8 +37,4 @@ html,body {
     width: 100%;
     border-bottom:solid 2px #000000;
     margin-bottom: 16px;
-}
-
-#page-content {
-    flex: 1 0 auto;
 }

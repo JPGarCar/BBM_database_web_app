@@ -47,13 +47,13 @@ define("FIELDS", array_diff($allFieldNames, $ignoreValues));
         <script type="text/javascript" src="public/js/process.js"></script>
     </head>
 
-    <body class="container-fluid p-0">
+    <body>
         <?php Navbar(); ?>
 
         <!-- Page title below navbar -->
         <?php TitleBanner(databaseName: DATABASE); ?>
 
-        <div class="container-fluid">
+        <div class="container-fluid flex-grow-1">
             <form action="render.php" method="get" id="submit-form">
                 <div class ="row">
 
@@ -71,54 +71,54 @@ define("FIELDS", array_diff($allFieldNames, $ignoreValues));
                         </div>
 
                         <?php
-                            list($layoutFields1, $layoutFields2) = array_chunk(FIELDS, ceil(count(FIELDS) / 2));
-                            $count = 0;
-                            foreach ($layoutFields1 as $layoutField) : ?>
-                        <div class="row">
-                            <!--- Section that is one label and one search box --->
-                            <div class="col-sm-3">
-                                <label for="field-<?php echo $layoutField?>">
-                                    <?php echo htmlspecialchars(formatField($layoutField)) ?>
-                                </label>
+                        list($layoutFields1, $layoutFields2) = array_chunk(FIELDS, ceil(count(FIELDS) / 2));
+                        $count = 0;
+                        foreach ($layoutFields1 as $layoutField) : ?>
+                            <div class="row">
+                                <!--- Section that is one label and one search box --->
+                                <div class="col-sm-3">
+                                    <label for="field-<?php echo $layoutField?>">
+                                        <?php echo htmlspecialchars(formatField($layoutField)) ?>
+                                    </label>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <input type="text" id="field-<?php echo $layoutField?>"
+                                        <?php
+                                        if (isset($_POST[str_replace(' ', '_', $layoutField)]))
+                                            echo "value=".htmlspecialchars($_POST[str_replace(' ', '_', $layoutField)]);
+                                        ?>
+                                           name="<?php echo htmlspecialchars($layoutField) ?>"
+                                           class="form-control"
+                                    >
+                                </div>
+
+                                <!--- End of a single label, input instance --->
+                                <?php if($count < sizeof($layoutFields2)) : ?>
+
+                                    <!--- Section that is one label and one search box --->
+                                    <div class="col-sm-3">
+                                        <label for="field-<?php echo $layoutFields2[$count]?>">
+                                            <?php echo htmlspecialchars(formatField($layoutFields2[$count])) ?>
+                                        </label>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <input type="text" id="field-<?php echo $layoutFields2[$count]?>"
+                                            <?php
+                                            if (isset($_POST[str_replace(' ', '_', $layoutFields2[$count])]))
+                                                echo "value=".htmlspecialchars($_POST[str_replace(' ', '_', $layoutFields2[$count])]);
+                                            ?>
+                                               name="<?php echo htmlspecialchars($layoutFields2[$count]) ?>"
+                                               class="form-control"
+                                        >
+                                    </div>
+
+                                    <!--- End of a single label, input instance --->
+                                <?php endif; ?>
+
                             </div>
-
-                            <div class="col-sm-3">
-                                <input type="text" id="field-<?php echo $layoutField?>"
-                                    <?php
-                                    if (isset($_POST[str_replace(' ', '_', $layoutField)]))
-                                      echo "value=".htmlspecialchars($_POST[str_replace(' ', '_', $layoutField)]);
-                                    ?>
-                                    name="<?php echo htmlspecialchars($layoutField) ?>"
-                                    class="form-control"
-                                >
-                            </div>
-
-                            <!--- End of a single label, input instance --->
-                            <?php if($count < sizeof($layoutFields2)) : ?>
-
-                            <!--- Section that is one label and one search box --->
-                            <div class="col-sm-3">
-                                <label for="field-<?php echo $layoutFields2[$count]?>">
-                                    <?php echo htmlspecialchars(formatField($layoutFields2[$count])) ?>
-                                </label>
-                            </div>
-
-                            <div class="col-sm-3">
-                                <input type="text" id="field-<?php echo $layoutFields2[$count]?>"
-                                    <?php
-                                        if (isset($_POST[str_replace(' ', '_', $layoutFields2[$count])]))
-                                          echo "value=".htmlspecialchars($_POST[str_replace(' ', '_', $layoutFields2[$count])]);
-                                    ?>
-                                    name="<?php echo htmlspecialchars($layoutFields2[$count]) ?>"
-                                    class="form-control"
-                                >
-                            </div>
-
-                            <!--- End of a single label, input instance --->
-                            <?php endif; ?>
-
-                        </div>
-                        <?php $count++; endforeach; ?>
+                            <?php $count++; endforeach; ?>
                     </div>
 
                     <!-- search ops, images, maps, etc -->
@@ -128,66 +128,66 @@ define("FIELDS", array_diff($allFieldNames, $ignoreValues));
                             <?php
                             if(DATABASE === 'entomology'){
                                 echo '
-                                    <div id="entoSite" class="row no-gutters">
-                                        <div class="col-sm-12" style="background: url(public/images/entomologyBannerImages/rotator.php) no-repeat center center; background-size: 100% auto; text-align: center; color: white;">
-                                            <div style ="margin-top:30px;margin-bottom:30px;">
-                                                <a href="https://www.zoology.ubc.ca/entomology/" style="text-decoration: none; color: white;">
-                                                    <p>Welcome to the</p><h3>SPENCER ENTOMOLOGICAL COLLECTION</h3>
-                                                </a>
-                                            </div>
+                                <div id="entoSite" class="row no-gutters">
+                                    <div class="col-sm-12" style="background: url(public/images/entomologyBannerImages/rotator.php) no-repeat center center; background-size: 100% auto; text-align: center; color: white;">
+                                        <div style ="margin-top:30px;margin-bottom:30px;">
+                                            <a href="https://www.zoology.ubc.ca/entomology/" style="text-decoration: none; color: white;">
+                                                <p>Welcome to the</p><h3>SPENCER ENTOMOLOGICAL COLLECTION</h3>
+                                            </a>
                                         </div>
                                     </div>
-                                ';
+                                </div>
+                            ';
                             }
                             ?>
                         </div>
 
                         <!--- start of accordion collapsible--->
                         <div class="panel-group" id="accordion">
-                        <div class="panel">
-                          <div class="panel-heading">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                            <h4 class="panel-title" > SEARCH OPERATORS
-                            <span id="icon" class="oi oi-plus"> </span>
-                           </h4></a>
-                          </div>
-                          <div id="collapse1" class="panel-collapse collapse in">
-                            <div class="panel-body">
-                              <div class="row">
-                                <div class="col-sm-1"> == </div>
-                                <div class="col-sm-11"> match entire field exactly </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-sm-1"> &lt </div>
-                                <div class="col-sm-11"> find records with values less than to the one specified </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-sm-1"> &lt= </div>
-                                <div class="col-sm-11">  find records with values less than or equal to the one specified </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-sm-1"> &gt </div>
-                                <div class="col-sm-11">  find records with values greater than to the one specified </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-sm-1"> &gt= </div>
-                                <div class="col-sm-11">  find records with values greater than or equal to the one specified </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-sm-1"> ... </div>
-                                <div class="col-sm-11">  find records with values in a range (Ex. 10...20) </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-sm-1"> * </div>
-                                <div class="col-sm-11">  match zero or more characters </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-sm-1"> \ </div>
-                                <div class="col-sm-11">  escape any character </div>
-                              </div>
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                                        <h4 class="panel-title" > SEARCH OPERATORS
+                                            <span id="icon" class="oi oi-plus"> </span>
+                                        </h4></a>
+                                </div>
+                                <div id="collapse1" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-sm-1"> == </div>
+                                            <div class="col-sm-11"> match entire field exactly </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-1"> &lt </div>
+                                            <div class="col-sm-11"> find records with values less than to the one specified </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-1"> &lt= </div>
+                                            <div class="col-sm-11">  find records with values less than or equal to the one specified </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-1"> &gt </div>
+                                            <div class="col-sm-11">  find records with values greater than to the one specified </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-1"> &gt= </div>
+                                            <div class="col-sm-11">  find records with values greater than or equal to the one specified </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-1"> ... </div>
+                                            <div class="col-sm-11">  find records with values in a range (Ex. 10...20) </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-1"> * </div>
+                                            <div class="col-sm-11">  match zero or more characters </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-1"> \ </div>
+                                            <div class="col-sm-11">  escape any character </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
-                        </div>
                         </div>
 
                         <!-- search operators -->
@@ -215,15 +215,15 @@ define("FIELDS", array_diff($allFieldNames, $ignoreValues));
                         <!-- only image select -->
                         <div class="form-group">
                             <?php if (in_array(DATABASE, kDATABASES_WITH_IMAGES)) : ?>
-                                    <div class="col">
-                                        <input type="checkbox" id="imageCheck">
-                                        <label for="imageCheck">
-                                            Only show records that contain an image
-                                        </label>
-                                    </div>
+                                <div class="col">
+                                    <input type="checkbox" id="imageCheck">
+                                    <label for="imageCheck">
+                                        Only show records that contain an image
+                                    </label>
+                                </div>
 
-                                    <!-- Used to set data for the form with the Process() function in js/process.js TODO remove this -->
-                                    <input type="hidden" name="hasImage" id="hasImage">
+                                <!-- Used to set data for the form with the Process() function in js/process.js TODO remove this -->
+                                <input type="hidden" name="hasImage" id="hasImage">
                             <?php endif; ?>
                             <!-- also used to set data for the form with the Process() TODO remove this -->
                             <input type="hidden" name="type" id="type">
