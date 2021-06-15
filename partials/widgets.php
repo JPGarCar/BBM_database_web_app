@@ -19,7 +19,7 @@ function TitleBanner(string $databaseName) {
     }
 
     echo '
-            <div class="container-fluid no-padding">
+            <div class="container-fluid p-0">
                   <h1>
                       <b>
                         '. $title .' Search

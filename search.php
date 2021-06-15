@@ -47,7 +47,7 @@ define("FIELDS", array_diff($allFieldNames, $ignoreValues));
         <script type="text/javascript" src="public/js/process.js"></script>
     </head>
 
-    <body class="container-fluid no-padding">
+    <body class="container-fluid p-0">
         <?php Navbar(); ?>
 
         <!-- Page title below navbar -->

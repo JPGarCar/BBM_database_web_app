@@ -258,7 +258,7 @@ class DatabaseSearch {
         # basic table setup with helper functions
         echo '
          <!-- construct table for given layout and fields -->
-        <div class="container-fluid no-padding">
+        <div class="container-fluid p-0">
             <!-- id table for special color -->
             <table class="table table-hover table-striped table-responsive" id="table">
                 <thead>

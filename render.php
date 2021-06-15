@@ -56,7 +56,7 @@ try {
         <link rel="stylesheet" href="public/css/render.css">
     </head>
 
-    <body class="container-fluid no-padding">
+    <body class="container-fluid p-0">
 
         <!-- navbar -->
         <?php Navbar(); ?>
