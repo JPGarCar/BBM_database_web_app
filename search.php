@@ -128,11 +128,12 @@ define("FIELDS", array_diff($allFieldNames, $ignoreValues));
                             <?php
                             if(DATABASE === 'entomology'){
                                 echo '
-                                <div id="entoSite" class="row no-gutters">
+                                <div id="entoSite" class="row g-0 p-0">
                                     <div class="col-sm-12" style="background: url(public/images/entomologyBannerImages/rotator.php) no-repeat center center; background-size: 100% auto; text-align: center; color: white;">
-                                        <div style ="margin-top:30px;margin-bottom:30px;">
+                                        <div class="my-4">
                                             <a href="https://www.zoology.ubc.ca/entomology/" style="text-decoration: none; color: white;">
-                                                <p>Welcome to the</p><h3>SPENCER ENTOMOLOGICAL COLLECTION</h3>
+                                                <p>Welcome to the</p>
+                                                <h3>SPENCER ENTOMOLOGICAL COLLECTION</h3>
                                             </a>
                                         </div>
                                     </div>
@@ -143,16 +144,15 @@ define("FIELDS", array_diff($allFieldNames, $ignoreValues));
                         </div>
 
                         <!--- start of accordion collapsible--->
-                        <div class="panel-group" id="accordion">
-                            <div class="panel">
-                                <div class="panel-heading">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                                        <h4 class="panel-title" > SEARCH OPERATORS
-                                            <span id="icon" class="oi oi-plus"> </span>
-                                        </h4></a>
-                                </div>
-                                <div id="collapse1" class="panel-collapse collapse in">
-                                    <div class="panel-body">
+                        <div class="accordion" id="accordionSearchOps">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                                        Search Operators
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="accordionSearchOps">
+                                    <div class="accordion-body">
                                         <div class="row">
                                             <div class="col-sm-1"> == </div>
                                             <div class="col-sm-11"> match entire field exactly </div>
@@ -193,16 +193,12 @@ define("FIELDS", array_diff($allFieldNames, $ignoreValues));
                         <!-- search operators -->
                         <div class="form-group">
                             <h4>Search By</h4>
-                            <div class = "btn-group btn-group-toggle" data-toggle="buttons" >
-                                <!-- AND -->
-                                <label class = "btn btn-custom active" id="andLabel">
-                                    <input type="radio"  id = "and" autocomplete="off" checked> AND
-                                </label>
+                            <div class="btn-group">
+                                <input type="radio" class="btn-check" name="options-outlined" id="and" checked autocomplete="off">
+                                <label class="btn btn-outline-secondary" for="and"> AND </label>
 
-                                <!-- OR -->
-                                <label class = "btn btn-custom" id="orLabel">
-                                    <input type="radio" id="or" autocomplete="off" > OR
-                                </label>
+                                <input type="radio" class="btn-check" name="options-outlined" id="or" autocomplete="off">
+                                <label class="btn btn-outline-secondary" for="or"> OR </label>
                             </div>
                         </div>
 
