@@ -149,8 +149,8 @@ define("FIELDS", array_diff($allFieldNames, $ignoreValues));
 
                                 <!-- only with image select, tooltip to explain why disabled -->
                                 <div class="form-check form-switch" <?php if (!in_array(DATABASE, kDATABASES_WITH_IMAGES)) echo 'data-bs-toggle="tooltip" title="No images available"' ?>>
-                                    <input type="checkbox" class="form-check-input" name="hasImage" <?php if (!in_array(DATABASE, kDATABASES_WITH_IMAGES)) echo 'disabled' ?>>
-                                    <label for="imageCheck" class="form-check-label">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" name="hasImage" <?php if (!in_array(DATABASE, kDATABASES_WITH_IMAGES)) echo 'disabled' ?>>
                                         Only show records that contain an image
                                     </label>
                                 </div>
