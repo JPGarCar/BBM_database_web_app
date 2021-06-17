@@ -14,15 +14,31 @@ $color = match ($_GET['Database']) {
     default => "#CC2229",
 };
 
+$lightColor = match ($_GET['Database']) {
+    "avian", "herpetology", "mammal" => "#b57164",
+    "vwsp", "algae", "fungi", "bryophytes", "lichen" => "#66e34f",
+    "miw", "mi" => "#ffc77a",
+    "fish" => "#449adb",
+    "entomology" => "#bb80ed",
+    "fossil" => "#f76c68",
+    default => "#ff545b",
+};
+
 echo "
     <style>
-        div h1 {
-            background: $color;
-            color: #ffffff;
-            margin-bottom: 0;
-            margin-right: 0;
-            margin-left: 0;
-            padding: 0 15px;
+        .conditional-background {
+            background-color: $color;
+            color: #FFFFFF;
+            border-color: $color;
+        }
+        
+        button.conditional-background:hover {
+            background-color: $lightColor;
+            border-color: $lightColor;
+        }
+        
+        .conditional-color {
+            color: $color;
         }
 
         input[type='radio'], input[type='button'] {

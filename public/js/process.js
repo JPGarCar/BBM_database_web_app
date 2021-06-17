@@ -4,8 +4,6 @@
  */
 function submitForm() {
 
-    // Set two values dynamically used by the program to search and sort
-    document.getElementById("type").value = document.getElementById("or").checked ? 'or' : 'and';
     if (document.getElementById("imageCheck")) {
         // need to check if it exists since it is not always used
         document.getElementById("hasImage").value = document.getElementById("imageCheck").checked ? '*' : '';
