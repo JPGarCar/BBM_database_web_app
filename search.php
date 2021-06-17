@@ -35,10 +35,10 @@ define("FIELDS", array_diff($allFieldNames, $ignoreValues));
     <head>
         <link rel="stylesheet" href="https://herbweb.botany.ubc.ca/arcgis_js_api/library/4.10/esri/css/main.css">
         <?php
-          require_once('partials/widgets.php');
+            require_once('partials/widgets.php');
 
-          HeaderWidget('Search');
-        require_once('partials/conditionalCSS.php');
+            HeaderWidget('Search');
+            require_once('partials/conditionalCSS.php');
         ?>
         <link rel="stylesheet" href="public/css/search.css">
 
@@ -56,8 +56,7 @@ define("FIELDS", array_diff($allFieldNames, $ignoreValues));
             <form action="render.php" method="get" id="submit-form">
                 <!-- hidden text field containing the database name -->
                 <label>
-                    <input type="text" hidden name="Database"
-                           value=<?php echo htmlspecialchars(DATABASE); ?>>
+                    <input type="text" hidden name="Database" value=<?php echo htmlspecialchars(DATABASE); ?>>
                 </label>
 
                 <!-- search or show all -->
@@ -65,14 +64,14 @@ define("FIELDS", array_diff($allFieldNames, $ignoreValues));
                     <!-- search or advanced search -->
                     <div class="flex-grow-1 px-sm-5 mb-4 mb-md-0" style="max-width: 75%">
                         <div class="input-group">
-                            <button type="button" class="btn btn-outline-secondary order-1 order-md-0" data-bs-toggle="collapse" data-bs-target="#advancedSearchDiv">Advanced Search</button>
+                            <button type="button" class="btn btn-outline-secondary order-1 order-md-0 conditional-outline-background" data-bs-toggle="collapse" data-bs-target="#advancedSearchDiv">Advanced Search</button>
                             <input type="text" class="form-control form-control-lg order-0 order-md-1" style="min-width: 225px" placeholder="Start a taxon search">
                             <button type="submit" onclick="submitForm()" class="btn btn-outline-primary conditional-background order-2 flex-grow-1 flex-md-grow-0"> Search </button>
                         </div>
                         <div class="form-text">You can search for phylum, class, order, family, etc... </div>
                     </div>
 
-                    <!-- show all, add mb-4 to align button to search bar -->
+                    <!-- show all button, add mb-4 to align button to search bar -->
                     <div class="mb-4">
                         <button id="form" type="button" value="submit" onclick="submitForm()" class="btn btn-primary btn-lg conditional-background">Show All Records</button>
                     </div>
@@ -140,17 +139,17 @@ define("FIELDS", array_diff($allFieldNames, $ignoreValues));
                                 <!-- radio inputs have same name, so that only one can be enabled, and is used in render.php -->
                                 <div class="btn-group">
                                     <span class="input-group-text"> Search with: </span>
-                                    <input type="radio" class="btn-check" name="operator" id="and" value="and" checked autocomplete="off">
+                                    <input type="radio" class="btn-check radio-conditional-background" name="operator" id="and" value="and" checked autocomplete="off">
                                     <label class="btn btn-outline-secondary" for="and"> AND </label>
 
-                                    <input type="radio" class="btn-check" name="operator" id="or" value="or" autocomplete="off">
+                                    <input type="radio" class="btn-check radio-conditional-background" name="operator" id="or" value="or" autocomplete="off">
                                     <label class="btn btn-outline-secondary" for="or"> OR </label>
                                 </div>
 
                                 <!-- only with image select, tooltip to explain why disabled -->
                                 <div class="form-check form-switch" <?php if (!in_array(DATABASE, kDATABASES_WITH_IMAGES)) echo 'data-bs-toggle="tooltip" title="No images available"' ?>>
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="hasImage" <?php if (!in_array(DATABASE, kDATABASES_WITH_IMAGES)) echo 'disabled' ?>>
+                                        <input type="checkbox" class="form-check-input checkbox-conditional-background" name="hasImage" <?php if (!in_array(DATABASE, kDATABASES_WITH_IMAGES)) echo 'disabled' ?>>
                                         Only show records that contain an image
                                     </label>
                                 </div>
@@ -169,11 +168,12 @@ define("FIELDS", array_diff($allFieldNames, $ignoreValues));
         <!-- footer -->
         <?php FooterWidget(imgSrc: 'public/images/beatyLogo.png'); ?>
 
-    <script>
-        let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl)
-        })
-    </script>
+        <!-- Script to enable tooltips -->
+        <script>
+            let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            })
+        </script>
     </body>
 </html>

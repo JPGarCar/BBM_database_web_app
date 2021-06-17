@@ -26,24 +26,41 @@ $lightColor = match ($_GET['Database']) {
 
 echo "
     <style>
+        /* Styles for background and border color */
         .conditional-background {
             background-color: $color;
             color: #FFFFFF;
             border-color: $color;
         }
-        
         button.conditional-background:hover {
             background-color: $lightColor;
             border-color: $lightColor;
         }
         
+        /* Styles for text color */
         .conditional-color {
             color: $color;
         }
-
-        input[type='radio'], input[type='button'] {
-            background: $color;
+        
+        /* Change checkbox color to light when unchecked and color when checked */
+        .checkbox-conditional-background:checked, input[type='radio']:checked.radio-conditional-background + label {
+            background-color: $color;
             border-color: $color;
+        }
+        .checkbox-conditional-background, input[type='radio'].radio-conditional-background + label {
+            background-color: $lightColor;
+            border-color: $lightColor;
+            color: #FFFFFF;
+        }
+        
+        /* Styles for a outline only button */
+        .conditional-outline-background {
+            color: $color;
+            outline-color: $color;
+        }
+        .conditional-outline-background:hover {
+            color: #FFFFFF;
+            background-color: $color;
         }
 
         label.btn-custom, a.btn-custom,
@@ -51,6 +68,11 @@ echo "
             background-color: $color;
             color: #ffffff;
             border-color: $color;
+        }
+        
+        .form-control:focus, .form-control-lg:focus {
+            border-color: $color;
+            box-shadow: 0 0 0 0.2rem $color;
         }
 
         a.btn-custom:hover,
@@ -61,17 +83,6 @@ echo "
         .btn-custom.active:hover {
             background-color: #49241c;
             color: #ffffff;
-        }
-
-        #jumbotron a, #table a{
-            color: $color;
-            text-decoration: none;
-        }
-
-        #jumbotron a:hover, #table a:hover {
-            color: #49241c;
-            text-decoration: none;
-            background-color: inherit;
         }
 
         .previous {
