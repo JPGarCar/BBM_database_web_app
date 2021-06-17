@@ -246,6 +246,34 @@ class DatabaseSearch {
     }
 
     /**
+     * Query FM over all taxon values with same value, and 'OR' operator.
+     * @param string $searchText
+     * @param int $maxResponseAmount
+     * @param int $pageNumber
+     * @return Result
+     * @throws FileMakerException
+     */
+    public function queryTaxonSearch(string $searchText, int $maxResponseAmount = 50, int $pageNumber = 1): Result
+    {
+        $findCommand = $this->fileMaker->newFindCommand($this->search_layout->getName());
+        $findCommand->setLogicalOperator(operator: FileMaker::FIND_OR);
+
+        $taxonFields = array(
+            "avian" => array('Taxon::order', 'Taxon::family', 'Taxon::phylum', 'Taxon::genus', 'Taxon::class')
+        );
+
+        foreach ($taxonFields["avian"] as $field) {
+            $findCommand->addFindCriterion(
+                fieldName: $field, value: $searchText
+            );
+        }
+
+        $findCommand->setRange(skip: ($pageNumber - 1) * $maxResponseAmount, max: $maxResponseAmount);
+
+        return $findCommand->execute();
+    }
+
+    /**
      * Echos a data table to show the results for this database search.
      * @param Result $result
      */

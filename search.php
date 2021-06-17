@@ -65,8 +65,11 @@ define("FIELDS", array_diff($allFieldNames, $ignoreValues));
                     <div class="flex-grow-1 px-sm-5 mb-4 mb-md-0" style="max-width: 75%">
                         <div class="input-group">
                             <button type="button" class="btn btn-outline-secondary order-1 order-md-0 conditional-outline-background" data-bs-toggle="collapse" data-bs-target="#advancedSearchDiv">Advanced Search</button>
-                            <input type="text" class="form-control form-control-lg order-0 order-md-1" style="min-width: 225px" placeholder="Start a taxon search">
-                            <button type="submit" onclick="submitForm()" class="btn btn-outline-primary conditional-background order-2 flex-grow-1 flex-md-grow-0"> Search </button>
+                            <!-- small form for taxon search -->
+                            <form action="render.php" method="get" id="taxon-search">
+                                <input type="text" class="form-control form-control-lg order-0 order-md-1" style="min-width: 225px" placeholder="Start a taxon search" name="taxon-search">
+                                <button type="submit" class="btn btn-outline-primary conditional-background order-2 flex-grow-1 flex-md-grow-0"> Search </button>
+                            </form>
                         </div>
                         <div class="form-text">You can search for phylum, class, order, family, etc... </div>
                     </div>
@@ -156,7 +159,7 @@ define("FIELDS", array_diff($allFieldNames, $ignoreValues));
 
                                 <!-- submit button -->
                                 <div class="form-group">
-                                    <button type="submit" onclick="submitForm()" class="btn btn-outline-primary conditional-background"> Search </button>
+                                    <button type="submit" onclick="submitForm()" class="btn btn-outline-primary conditional-background"> Advanced Search </button>
                                 </div>
                             </div>
                         </div>
