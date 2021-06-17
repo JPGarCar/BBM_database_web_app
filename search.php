@@ -56,7 +56,7 @@ define("FIELDS", array_diff($allFieldNames, $ignoreValues));
             <form action="render.php" method="get" id="submit-form">
                 <!-- hidden text field containing the database name -->
                 <label>
-                    <input type="text" hidden name="Database" value=<?php echo htmlspecialchars(DATABASE); ?>>
+                    <input type="text" hidden id="Database" name="Database" value=<?php echo htmlspecialchars(DATABASE); ?>>
                 </label>
 
                 <!-- search or show all -->
@@ -73,7 +73,7 @@ define("FIELDS", array_diff($allFieldNames, $ignoreValues));
 
                     <!-- show all button, add mb-4 to align button to search bar -->
                     <div class="mb-4">
-                        <button id="form" type="button" value="submit" onclick="submitForm()" class="btn btn-primary btn-lg conditional-background">Show All Records</button>
+                        <button id="form" type="button" value="submit" onclick="submitEmptyForm()" class="btn btn-primary btn-lg conditional-background">Show All Records</button>
                     </div>
                 </div>
 
