@@ -61,13 +61,13 @@ define("FIELDS", array_diff($allFieldNames, $ignoreValues));
                 </label>
 
                 <!-- search or show all -->
-                <div class="d-flex justify-content-evenly p-1 align-items-center">
+                <div class="d-flex flex-wrap flex-column flex-md-row justify-content-evenly align-items-center p-1">
                     <!-- search or advanced search -->
-                    <div class="flex-grow-1 px-5" style="max-width: 75%">
+                    <div class="flex-grow-1 px-sm-5 mb-4 mb-md-0" style="max-width: 75%">
                         <div class="input-group">
-                            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#advancedSearchDiv">Advanced Search</button>
-                            <input type="text" class="form-control form-control-lg" placeholder="Start a taxon search">
-                            <button type="submit" onclick="submitForm()" class="btn btn-outline-primary conditional-background"> Search </button>
+                            <button type="button" class="btn btn-outline-secondary order-1 order-md-0" data-bs-toggle="collapse" data-bs-target="#advancedSearchDiv">Advanced Search</button>
+                            <input type="text" class="form-control form-control-lg order-0 order-md-1" style="min-width: 225px" placeholder="Start a taxon search">
+                            <button type="submit" onclick="submitForm()" class="btn btn-outline-primary conditional-background order-2 flex-grow-1 flex-md-grow-0"> Search </button>
                         </div>
                         <div class="form-text">You can search for phylum, class, order, family, etc... </div>
                     </div>
