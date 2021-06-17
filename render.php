@@ -38,7 +38,7 @@ try {
     $result = $databaseSearch->queryForResults($maxResponses, $usefulGETFields, $_GET['operator'] ?? 'and',
         $_GET['Sort'] ?? null, $_GET['Page'] ?? 1, $_GET['SortOrder'] ?? null);
 } catch (FileMakerException $e) {
-    $_SESSION['error'] = implode(array_map(function ($value, $key) { return $key . '=>' . $value . PHP_EOL; }, array_values($_GET), array_keys($_GET))) . $e->getMessage() . ' ' . implode($usefulGETFields);
+    $_SESSION['error'] = $e->getMessage();
     header('Location: error.php');
     exit;
 }

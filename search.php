@@ -147,15 +147,12 @@ define("FIELDS", array_diff($allFieldNames, $ignoreValues));
                                     <label class="btn btn-outline-secondary" for="or"> OR </label>
                                 </div>
 
-                                <!-- only with image select -->
-                                <div class="form-check form-switch">
-                                    <input type="checkbox" class="form-check-input" id="imageCheck" <?php if (!in_array(DATABASE, kDATABASES_WITH_IMAGES)) echo 'disabled' ?>>
+                                <!-- only with image select, tooltip to explain why disabled -->
+                                <div class="form-check form-switch" <?php if (!in_array(DATABASE, kDATABASES_WITH_IMAGES)) echo 'data-bs-toggle="tooltip" title="No images available"' ?>>
+                                    <input type="checkbox" class="form-check-input" name="hasImage" <?php if (!in_array(DATABASE, kDATABASES_WITH_IMAGES)) echo 'disabled' ?>>
                                     <label for="imageCheck" class="form-check-label">
                                         Only show records that contain an image
                                     </label>
-
-                                    <!-- Used to set data for the form with the Process() function in js/process.js TODO remove this -->
-                                    <input type="hidden" name="hasImage" id="hasImage">
                                 </div>
 
                                 <!-- submit button -->
@@ -171,5 +168,12 @@ define("FIELDS", array_diff($allFieldNames, $ignoreValues));
 
         <!-- footer -->
         <?php FooterWidget(imgSrc: 'public/images/beatyLogo.png'); ?>
+
+    <script>
+        let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
     </body>
 </html>

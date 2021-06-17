@@ -3,15 +3,7 @@
  * Will also remove any unused fields from the get request.
  */
 function submitForm() {
-
-    if (document.getElementById("imageCheck")) {
-        // need to check if it exists since it is not always used
-        document.getElementById("hasImage").value = document.getElementById("imageCheck").checked ? '*' : '';
-
-        // Disable the imageCheck field if its not checked
-        document.getElementById("imageCheck").disabled = !document.getElementById("imageCheck").checked;
-    }
-
+    
     // Get all the form text inputs
     const form = document.getElementById("submit-form");
     const inputs = form.querySelectorAll("input[type=text]");
