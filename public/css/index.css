@@ -2,18 +2,19 @@
     CSS for index.php
 */
 
-h1{
+.collection-header {
+    background: #3e3e3f;
+    color:  #ffffff;
+    margin: 0;
+    padding: 5px 0;
+    font-size: 1.7em;
+}
+
+.collection-title {
     background: #3e3e3f;
     color:  #ffffff;
     padding: 15px;
-    margin-bottom:0px;
-}
-
-h2{
-    background: #3e3e3f;
-    color:  #ffffff;
-    margin: 0px;
-    font-size: 1.7em;
+    margin-bottom: 0;
 }
 
 

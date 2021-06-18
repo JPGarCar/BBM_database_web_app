@@ -2,6 +2,8 @@
  * Adds an event listener to all hide/show radio inputs.
  * When the radio value is changed, the corresponding table column
  * is hidden or shown.
+ *
+ * Kudos to https://www.javascripttutorial.net/javascript-dom/javascript-change-event/
  */
 
 let table = document.getElementById('table');

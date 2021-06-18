@@ -196,7 +196,7 @@ function Navbar() {
         <nav class="navbar navbar-expand-lg navbar-dark red-background">
             
             <!-- BMD title sends to main page -->
-            <a class="navbar-brand" href="index.php"><h3>Beaty Museum Databases</h3></a>
+            <a class="navbar-brand px-3" href="index.php"><h2>Beaty Museum Databases</h2></a>
         
             <!-- Used for collapse support -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
