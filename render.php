@@ -22,8 +22,10 @@ try {
 }
 
 # get the fields for the search and result layout
-$layoutFields = $databaseSearch->getSearchLayout()->listFields();
-$recFields = $databaseSearch->getResultLayout()->listFields();
+$searchLayoutFieldNames = $databaseSearch->getSearchLayout()->listFields();
+$resultLayoutFields = $databaseSearch->getResultLayout()->listFields();
+
+$searchLayoutFields = $databaseSearch->getSearchLayout()->getFields();
 
 $maxResponses = 30;
 
@@ -76,13 +78,31 @@ if ($_GET['taxon-search'] ?? null) {
 
         <!-- main body with table and its widgets -->
         <div class="container-fluid flex-grow-1">
+
+            <div class="py3">
+                <!-- review search parameters -->
+                <button type="button" data-bs-toggle="collapse" data-bs-target="#advancedSearchDiv"
+                        class="btn btn-outline-secondary order-1 order-md-0 conditional-outline-background"
+                        >Review Search Parameters</button>
+
+                <!-- edit table columns -->
+
+                <!-- enable/disable images -->
+
+                <!-- download data -->
+
+                <!-- start a new search -->
+            </div>
+
+
+
             <!-- Modify Search Button -->
             <div class="form-group">
                 <form method=post action=<?php echo "search.php"."?Database=".htmlspecialchars(DATABASE);?>>
                     <?php
                     # will add the search params as hidden inputs to use in future sort or page calls
                     foreach ($_GET as $key=>$value) {
-                        if (in_array($key, $layoutFields) || (in_array(str_replace('_', ' ', $key), $layoutFields))) {
+                        if (in_array($key, $searchLayoutFieldNames) || (in_array(str_replace('_', ' ', $key), $searchLayoutFieldNames))) {
                             echo "<input  type=hidden value=".htmlspecialchars($value)." name=".htmlspecialchars($key).">";
                         }
                     }
