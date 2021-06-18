@@ -9,25 +9,31 @@ require_once ('utilities.php');
 
 /**
  * A title banner is a row with a title and a background color
- * @param string $databaseName
+ * @param string $database
  * @param int $paddingIndex
  */
-function TitleBanner(string $databaseName, int $paddingIndex = 2) {
-    if($databaseName === "mi" || $databaseName === "miw" || $databaseName === "vwsp") {
-        if ($databaseName === "mi") { $title = "Dry Marine Invertebrate"; }
-        else if ($databaseName === "vwsp") { $title = "Vascular"; }
-        else { $title = "Wet Marine Invertebrate"; }
-    } else {
-        $title = ucfirst($databaseName);
-    }
+function TitleBannerSearch(string $database, int $paddingIndex = 2) {
+    $databaseName = getDatabaseName($database);
 
     echo "
             <div class='container-fluid p-$paddingIndex conditional-background text-center'>
                   <h1>
-                      <b> Welcome to the $title Collection </b>
+                      <b> Welcome to the $databaseName Collection </b>
                   </h1>
             </div>
         ";
+}
+
+function TitleBannerRender(string $database, int $recordNumber) {
+    $databaseName = getDatabaseName($database);
+
+    echo "
+        <div class='container-fluid p-2 conditional-background text-center'>
+            <h2>
+            <b>Your $databaseName Collection search found $recordNumber records!</b>
+            </h2>
+        </div>
+    ";
 }
 
 /**
@@ -84,7 +90,6 @@ function TableControllerWidget($maxResponses, $result) {
         </div>
     ";
 }
-
 /**
  * @param int $page current page index
  * @param string $noPageUri uri without Page field

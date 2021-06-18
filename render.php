@@ -72,7 +72,7 @@ if ($_GET['taxon-search'] ?? null) {
         <?php Navbar(); ?>
 
         <!-- Page title below navbar -->
-        <?php TitleBanner(databaseName: DATABASE); ?>
+        <?php TitleBannerRender(database: DATABASE, recordNumber: $result->getFoundSetCount()); ?>
 
         <!-- main body with table and its widgets -->
         <div class="container-fluid flex-grow-1">

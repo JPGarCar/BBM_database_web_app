@@ -54,7 +54,7 @@ $allFields = array_diff_key($allFields, $ignoreValues);
         <?php Navbar(); ?>
 
         <!-- Page title below navbar -->
-        <?php TitleBanner(databaseName: DATABASE, paddingIndex: 3); ?>
+        <?php TitleBannerSearch(database: DATABASE, paddingIndex: 3); ?>
 
         <div class="container-fluid flex-grow-1">
             <form action="render.php" method="get" id="submit-form">
