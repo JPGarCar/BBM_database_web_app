@@ -6,7 +6,9 @@
  */
 
 
-/* responsive column setup, different column depending on width */
+/* responsive column setup, different column depending on width
+    kudos to https://stackoverflow.com/questions/24197007/how-can-i-show-three-columns-per-row for help
+*/
 .responsive-columns {
     width: 100%;
 }
