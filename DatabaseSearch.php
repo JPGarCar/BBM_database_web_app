@@ -376,7 +376,7 @@ class DatabaseSearch {
             $icon_class = $_GET['SortOrder'] ?? '' === 'Descend' ? 'oi-sort-descending' : 'oi-sort-ascending';
 
             echo "
-                <th scope='col' id=$id>
+                <th scope='col' id='$id' class='text-center'>
                     <a style='padding: 0; white-space:nowrap;' href=$href class='table-col-header' role='button'>
                         <!-- order icon -->
                         <span id='icon'  class='oi $icon_class'></span>

@@ -24,7 +24,7 @@ try {
 
 # get the fields for the search and result layout
 $searchLayoutFieldNames = $databaseSearch->getSearchLayout()->listFields();
-$resultLayoutFields = $databaseSearch->getResultLayout()->listFields();
+$resultLayoutFieldNames = $databaseSearch->getResultLayout()->listFields();
 
 $searchLayoutFields = $databaseSearch->getSearchLayout()->getFields();
 
@@ -216,7 +216,22 @@ if ($_GET['taxon-search'] ?? null) {
             </div>
 
             <!-- edit table columns -->
-            <div class="collapse w-100" id="tableColumnFilterDiv"></div>
+            <div class="collapse w-100" id="tableColumnFilterDiv">
+                <div class="d-flex flex-wrap flex-row justify-content-around px-5 py-3 gap-3">
+                    <?php foreach ($resultLayoutFieldNames as $fieldName): ?>
+                        <div class="btn-group me-auto">
+                            <span class="input-group-text"><?=htmlspecialchars(formatField($fieldName))?></span>
+                            <input type="radio" name="view<?=htmlspecialchars(formatField($fieldName))?>" id="show<?=htmlspecialchars(formatField($fieldName))?>"
+                                   class="btn-check radio-conditional-background" value="show" checked>
+                            <label for="show<?=htmlspecialchars(formatField($fieldName))?>" class="btn btn-outline-secondary">Show</label>
+
+                            <input type="radio" name="view<?=htmlspecialchars(formatField($fieldName))?>" id="hide<?=htmlspecialchars(formatField($fieldName))?>"
+                                   class="btn-check radio-conditional-background" value="Hide">
+                            <label for="hide<?=htmlspecialchars(formatField($fieldName))?>" class="btn btn-outline-secondary">Hide</label>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
 
             <?php $databaseSearch->echoDataTable($result); ?>
 
@@ -230,5 +245,6 @@ if ($_GET['taxon-search'] ?? null) {
 
         <!-- scripts -->
         <script type="text/javascript" src="public/js/advanced-search.js"></script>
+        <script type="text/javascript" src="public/js/hide-show-columns.js"></script>
     </body>
 </html>
