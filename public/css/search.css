@@ -6,5 +6,22 @@
  */
 
 
+/* responsive column setup, different column depending on width */
+.responsive-columns {
+    width: 100%;
+}
 
-  
+@media only screen and (min-width: 768px) {
+    .responsive-columns {
+        width: 50%;
+    }
+}
+@media only screen and (min-width: 992px) {
+    .responsive-columns {
+        width: 33%;
+    }
+}
+
+a[role='button'] {
+    text-decoration: none;
+}

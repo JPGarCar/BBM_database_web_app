@@ -38,12 +38,20 @@ echo "
             box-shadow: 0 0 0 0.2rem $color;
         }
         
+        .conditional-background-light {
+            background-color: $lightColor;
+            border-color: $lightColor;
+            color: white;
+        }
+        
         /* Styles for text color */
         .conditional-color {
             color: $color;
         }
         
-        /* Change checkbox color to light when unchecked and color when checked */
+        /* Change checkbox color to light when unchecked and color when checked
+            https://stackoverflow.com/questions/44263892/how-to-style-a-clicked-button-in-css/44264124
+         */
         .checkbox-conditional-background:checked,
         .checkbox-conditional-background:active,
         input[type='radio']:checked.radio-conditional-background + label,

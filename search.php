@@ -1,6 +1,7 @@
 <?php
 
 use airmoi\FileMaker\FileMakerException;
+use airmoi\FileMaker\Object\Field;
 
 require_once ('utilities.php');
 require_once ('constants.php');
@@ -21,12 +22,15 @@ try {
     exit;
 }
 
+# filter the layouts to those we only want
+$ignoreValues = ['SortNum' => '', 'Accession Numerical' => '', 'Imaged' => '', 'IIFRNo' => '',
+    'Photographs::photoFileName' => '', 'Event::eventDate' => '', 'card01' => '', 'Has Image' => '', 'imaged' => ''];
+
 $allFieldNames = array_keys($databaseSearch->getSearchLayout()->getFields());
 
-# filter the layouts to those we only want
-$ignoreValues = ['SortNum', 'Accession Numerical', 'Imaged', 'IIFRNo', 'Photographs::photoFileName', 'Event::eventDate', 'card01', 'Has Image', 'imaged'];
+$allFields = $databaseSearch->getSearchLayout()->getFields();
 
-define("FIELDS", array_diff($allFieldNames, $ignoreValues));
+$allFields = array_diff_key($allFields, $ignoreValues);
 
 ?>
 
@@ -81,86 +85,76 @@ define("FIELDS", array_diff($allFieldNames, $ignoreValues));
                 </div>
 
                 <div class="d-flex justify-content-around align-items-center px-5 py-3">
-                    <div class="collapse" id="advancedSearchDiv">
-                        <div class ="row">
-                            <!-- form elements -->
-                            <div>
-                                <?php
-                                list($layoutFields1, $layoutFields2) = array_chunk(FIELDS, ceil(count(FIELDS) / 2));
-                                $count = 0;
-                                foreach ($layoutFields1 as $layoutField) : ?>
-                                    <div class="row">
-                                        <!--- Section that is one label and one search box --->
-                                        <div class="col-sm-3">
-                                            <label for="field-<?php echo $layoutField?>">
-                                                <?php echo htmlspecialchars(formatField($layoutField)) ?>
+                    <div class="collapse w-100" id="advancedSearchDiv">
+                        <!-- form elements -->
+                        <div class="d-flex flex-column flex-md-row flex-md-wrap justify-content-center align-items-start align-items-md-end">
+                            <?php
+                            $count = 0;
+                            /**
+                             * @var string $fieldName
+                             * @var Field $field
+                             */
+                            foreach ($allFields as $fieldName => $field) : ?>
+
+                                <div class="px-3 py-2 py-md-1 flex-fill responsive-columns">
+                                    <!-- field name and input -->
+                                    <div class="input-group">
+                                        <a data-bs-toggle="collapse" href="#collapsable<?php echo $count?>" role="button">
+                                            <label class="input-group-text conditional-background-light"
+                                                   for="field-<?php echo $fieldName?>">
+                                                <?php echo htmlspecialchars(formatField($fieldName)) ?>
                                             </label>
-                                        </div>
+                                        </a>
+                                        <?php
+                                        try {
+                                            $fieldValues = $field->getValueList();
+                                        } catch (FileMakerException $e) { /* Do nothing */ }
 
-                                        <div class="col-sm-3">
-                                            <input type="text" id="field-<?php echo $layoutField?>"
-                                                <?php
-                                                if (isset($_POST[str_replace(' ', '_', $layoutField)]))
-                                                    echo "value=".htmlspecialchars($_POST[str_replace(' ', '_', $layoutField)]);
-                                                ?>
-                                                   name="<?php echo htmlspecialchars($layoutField) ?>"
-                                                   class="form-control"
-                                            >
-                                        </div>
-
-                                        <!--- End of a single label, input instance --->
-                                        <?php if($count < sizeof($layoutFields2)) : ?>
-
-                                            <!--- Section that is one label and one search box --->
-                                            <div class="col-sm-3">
-                                                <label for="field-<?php echo $layoutFields2[$count]?>">
-                                                    <?php echo htmlspecialchars(formatField($layoutFields2[$count])) ?>
-                                                </label>
-                                            </div>
-
-                                            <div class="col-sm-3">
-                                                <input type="text" id="field-<?php echo $layoutFields2[$count]?>"
-                                                    <?php
-                                                    if (isset($_POST[str_replace(' ', '_', $layoutFields2[$count])]))
-                                                        echo "value=".htmlspecialchars($_POST[str_replace(' ', '_', $layoutFields2[$count])]);
-                                                    ?>
-                                                       name="<?php echo htmlspecialchars($layoutFields2[$count]) ?>"
-                                                       class="form-control"
-                                                >
-                                            </div>
-
-                                            <!--- End of a single label, input instance --->
+                                        if (isset($fieldValues)) : ?>
+                                            <input class="form-control" list="datalistOptions" placeholder="Type to search" id="field-<?php echo $fieldName?>">
+                                            <datalist id="datalistOptions">
+                                                <?php foreach ($fieldValues as $fieldValue): ?>
+                                                    <option value="<?=$fieldValue?>"></option>
+                                                <?php endforeach; ?>
+                                            </datalist>
+                                        <?php else: ?>
+                                            <input class="form-control" type="<?php echo $field->getResult() ?>" id="field-<?php echo $fieldName?>">
                                         <?php endif; ?>
-
                                     </div>
-                                    <?php $count++; endforeach; ?>
+                                    <!-- field information -->
+                                    <div class="collapse" id="collapsable<?php echo $count?>">
+                                        <div class="card card-body">
+                                            This is some information!
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php $count++; endforeach; ?>
+                        </div>
+
+                        <!-- search ops and submit button -->
+                        <div class="d-inline-flex justify-content-evenly align-items-center py-4 w-100">
+
+                            <!-- radio inputs have same name, so that only one can be enabled, and is used in render.php -->
+                            <div class="btn-group">
+                                <span class="input-group-text"> Search with: </span>
+                                <input type="radio" class="btn-check radio-conditional-background" name="operator" id="and" value="and" checked autocomplete="off">
+                                <label class="btn btn-outline-secondary" for="and"> AND </label>
+
+                                <input type="radio" class="btn-check radio-conditional-background" name="operator" id="or" value="or" autocomplete="off">
+                                <label class="btn btn-outline-secondary" for="or"> OR </label>
                             </div>
 
-                            <!-- search ops and submit button -->
-                            <div class="d-inline-flex justify-content-evenly align-items-center py-4">
+                            <!-- only with image select, tooltip to explain why disabled -->
+                            <div class="form-check form-switch" <?php if (!in_array(DATABASE, kDATABASES_WITH_IMAGES)) echo 'data-bs-toggle="tooltip" title="No images available"' ?>>
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input checkbox-conditional-background" name="hasImage" <?php if (!in_array(DATABASE, kDATABASES_WITH_IMAGES)) echo 'disabled' ?>>
+                                    Only show records that contain an image
+                                </label>
+                            </div>
 
-                                <!-- radio inputs have same name, so that only one can be enabled, and is used in render.php -->
-                                <div class="btn-group">
-                                    <span class="input-group-text"> Search with: </span>
-                                    <input type="radio" class="btn-check radio-conditional-background" name="operator" id="and" value="and" checked autocomplete="off">
-                                    <label class="btn btn-outline-secondary" for="and"> AND </label>
-
-                                    <input type="radio" class="btn-check radio-conditional-background" name="operator" id="or" value="or" autocomplete="off">
-                                    <label class="btn btn-outline-secondary" for="or"> OR </label>
-                                </div>
-
-                                <!-- only with image select, tooltip to explain why disabled -->
-                                <div class="form-check form-switch" <?php if (!in_array(DATABASE, kDATABASES_WITH_IMAGES)) echo 'data-bs-toggle="tooltip" title="No images available"' ?>>
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input checkbox-conditional-background" name="hasImage" <?php if (!in_array(DATABASE, kDATABASES_WITH_IMAGES)) echo 'disabled' ?>>
-                                        Only show records that contain an image
-                                    </label>
-                                </div>
-
-                                <!-- submit button -->
-                                <div class="form-group">
-                                    <button type="submit" onclick="submitForm()" class="btn btn-outline-primary conditional-background"> Advanced Search </button>
-                                </div>
+                            <!-- submit button -->
+                            <div class="form-group">
+                                <button type="submit" onclick="submitForm()" class="btn btn-outline-primary conditional-background"> Advanced Search </button>
                             </div>
                         </div>
                     </div>
