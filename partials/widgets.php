@@ -5,6 +5,8 @@
  * @package Widgets
  */
 
+require_once ('utilities.php');
+
 /**
  * A title banner is a row with a title and a background color
  * @param string $databaseName
@@ -60,7 +62,7 @@ function DatabaseCard(string $title, string $img_source, string $href, string $b
  * @param $result
  */
 function TableControllerWidget($maxResponses, $result) {
-    $uri = $_SERVER['REQUEST_URI'];
+    $noPageUri = removeUrlVar($_SERVER['REQUEST_URI'], 'Page');
 
     $amountOfRecords = $result->getFoundSetCount();
 
@@ -75,35 +77,27 @@ function TableControllerWidget($maxResponses, $result) {
 
     $pageInfo = "$amountOfRecords records found in page ".htmlspecialchars($page)." / ".htmlspecialchars($maxPages);
 
-    echo ' 
-        <form action="render.php" method="get" id="pageForm">
-            <!-- text with num of results and pages -->
-            <div class="">
-                <p>'. $pageInfo .'</p>
-            </div>
-        
-            <!-- page number input -->
-            <div class="input-group">
-                <!-- TODO add value to input as current page -->
-                <div class="input-group-text">Go to page:</div>
-                <input type="number" name="Page" class="form-control" id="numberInput" min="1" max='. $maxPages .' value="'. $page . '">
-                <button type="submit" form="pageForm" value="Submit" class="btn btn-custom">Go</button>
-            </div>
-            
-            
-        </form>
-    ';
+    echoPaginationButtons($page, $noPageUri, $maxPages);
+    echo "
+        <div class='form-text'>
+            $pageInfo
+        </div>
+    ";
+}
 
+/**
+ * @param int $page current page index
+ * @param string $noPageUri uri without Page field
+ * @param float $maxPages maximum pages possible
+ */
+function echoPaginationButtons(int $page, string $noPageUri, float $maxPages): void
+{
     $paginationOptions = array(
         $page - 10, $page - 5, $page - 2, $page - 1, $page,
         $page + 1, $page + 2, $page + 5, $page + 10
     );
 
-    $parts = explode('&', $uri);
-    unset($parts['Page']);
-    $noPageUri = implode('&', $parts);
-
-    $paginationUrls = array_map(function ($pageNum) use ($noPageUri){
+    $paginationUrls = array_map(function ($pageNum) use ($noPageUri) {
         return $noPageUri . '&Page=' . $pageNum;
     }, $paginationOptions);
 
@@ -114,67 +108,37 @@ function TableControllerWidget($maxResponses, $result) {
 
     echo " <ul class='pagination'> ";
 
-        # back button
-        if ($page - 1 <= 0)
-            echo "<li class='page-item disabled'>
+    # back button
+    if ($page - 1 <= 0)
+        echo "<li class='page-item disabled'>
                     <a class='page-link' href='$pageUrlBack'><span>&laquo;</span></a>
                 </li>";
-        else
-            echo "<li class='page-item'>
+    else
+        echo "<li class='page-item'>
                     <a class='page-link' href='$pageUrlBack'><span>&laquo;</span></a>
                 </li>";
 
-            # each numbered pagination button
-            foreach ($paginationData as $pageNumber => $pageUrl) {
-                if ($pageNumber == $page)
-                    echo "<li class='page-item active'><a class='page-link' href='$pageUrl'>$pageNumber</a></li>";
-                else if ($pageNumber <= 0 or $pageNumber > $maxPages)
-                    echo "<li class='page-item disabled'><a class='page-link' href='$pageUrl'>$pageNumber</a></li>";
-                else
-                    echo "<li class='page-item'><a class='page-link' href='$pageUrl'>$pageNumber</a></li>";
-            }
-
-        # forward button
-        if ($page + 1 > $maxPages)
-            echo "<li class='page-item disabled'>
-                    <a class='page-link' href='$pageUrlForward'><span>&raquo;</span></a>
-                </li>
-            </ul>";
+    # each numbered pagination button
+    foreach ($paginationData as $pageNumber => $pageUrl) {
+        if ($pageNumber == $page)
+            echo "<li class='page-item active'><a class='page-link' href='$pageUrl'>$pageNumber</a></li>";
+        else if ($pageNumber <= 0 or $pageNumber > $maxPages)
+            echo "<li class='page-item disabled'><a class='page-link' href='$pageUrl'>$pageNumber</a></li>";
         else
-            echo "<li class='page-item'>
-                    <a class='page-link' href='$pageUrlForward'><span>&raquo;</span></a>
-                </li>
-            </ul>";
-}
-
-/**
- * Echos one or two buttons to travel between pages
- *
- * @param $pages
- * @param $parts
- * @param $amountOfRecords
- * @param $numRes
- */
-function NextBackButtons($pages, $parts, $amountOfRecords, $numRes) {
-    if (isset($_GET['Page']) && $_GET['Page'] != '') {
-        $pageNum = $_GET['Page'];
-        if ($pageNum > 1) {
-            $parts[sizeof($parts)-1] = 'Page='.($pageNum - 1);
-            $lasturi = implode('&', $parts);
-            echo '<a href=' . htmlspecialchars($lasturi) . ' class="previous round">&#8249</a>';
-        }
-        if ($pageNum < $pages && $pageNum != '') {
-            $parts[sizeof($parts)-1] = 'Page='.($pageNum + 1);
-            $nexturi = implode('&', $parts);
-            echo '<a href=' . htmlspecialchars($nexturi) . ' class="next round">&#8250</a>';
-        }
-    } else {
-        if ($amountOfRecords > $numRes){
-            array_push($parts, 'Page=2');
-            $nexturi = implode('&', $parts);
-            echo '<a href=' . htmlspecialchars($nexturi) . ' class="next round">&#8250</a>';
-        }
+            echo "<li class='page-item'><a class='page-link' href='$pageUrl'>$pageNumber</a></li>";
     }
+
+    # forward button
+    if ($page + 1 > $maxPages)
+        echo "<li class='page-item disabled'>
+                    <a class='page-link' href='$pageUrlForward'><span>&raquo;</span></a>
+                </li>
+            </ul>";
+    else
+        echo "<li class='page-item'>
+                    <a class='page-link' href='$pageUrlForward'><span>&raquo;</span></a>
+                </li>
+            </ul>";
 }
 
 /**

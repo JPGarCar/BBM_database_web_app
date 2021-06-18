@@ -25,7 +25,7 @@ try {
 $layoutFields = $databaseSearch->getSearchLayout()->listFields();
 $recFields = $databaseSearch->getResultLayout()->listFields();
 
-$maxResponses = 50;
+$maxResponses = 30;
 
 # remove any empty get fields
 $usefulGETFields = array_filter($_GET);
@@ -76,8 +76,6 @@ if ($_GET['taxon-search'] ?? null) {
 
         <!-- main body with table and its widgets -->
         <div class="container-fluid flex-grow-1">
-            <?php TableControllerWidget($maxResponses, $result); ?>
-
             <!-- Modify Search Button -->
             <div class="form-group">
                 <form method=post action=<?php echo "search.php"."?Database=".htmlspecialchars(DATABASE);?>>
@@ -93,12 +91,11 @@ if ($_GET['taxon-search'] ?? null) {
                 </form>
             </div>
 
-            <?php
-                # data table
-                $databaseSearch->echoDataTable($result);
+            <?php $databaseSearch->echoDataTable($result); ?>
 
-                TableControllerWidget($maxResponses, $result);
-            ?>
+            <div class="p-3">
+                <?php TableControllerWidget($maxResponses, $result); ?>
+            </div>
         </div>
 
         <!-- footer -->

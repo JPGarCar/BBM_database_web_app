@@ -5,6 +5,18 @@ use airmoi\FileMaker\Object\Record;
 require_once ('constants.php');
 
 /**
+ * Will clean out a url from a variable using regex.
+ * Kudos to https://stackoverflow.com/questions/1251582/beautiful-way-to-remove-get-variables-with-php
+ * @param string $url full url to remove var from
+ * @param string $varname url var name to remove
+ * @return string
+ */
+function removeUrlVar(string $url, string $varname): string
+{
+    return preg_replace('/([?&])'.$varname.'=[^&]+(&|$)/','',$url);
+}
+
+/**
  * Checks the value to see if its a valid database.
  * With wrong databases value a error.php page is shown.
  * @param string|null $databaseFieldValue
