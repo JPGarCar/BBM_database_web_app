@@ -86,14 +86,17 @@ $allFields = array_diff_key($allFields, $ignoreValues);
 
                 <div class="d-flex justify-content-around align-items-center px-5 py-3">
                     <div class="collapse w-100" id="advancedSearchDiv">
-                        <!-- form elements -->
+                        <!--
+                            form elements,
+                            using flex and media queries, we have one, two or three columns
+                            refer to the view css to media queries, we followed bootstrap cutoffs
+                         -->
                         <div class="d-flex flex-column flex-md-row flex-md-wrap justify-content-center align-items-start align-items-md-end">
                             <?php
+                            # Loop over all fields and create a field element in the form for each!
                             $count = 0;
-                            /**
-                             * @var string $fieldName
-                             * @var Field $field
-                             */
+                            /** @var string $fieldName
+                              * @var Field $field */
                             foreach ($allFields as $fieldName => $field) : ?>
 
                                 <div class="px-3 py-2 py-md-1 flex-fill responsive-columns">
@@ -106,6 +109,7 @@ $allFields = array_diff_key($allFields, $ignoreValues);
                                             </label>
                                         </a>
                                         <?php
+                                        # Try to get a list of options, if error (aka none available) then no datalist
                                         try {
                                             $fieldValues = $field->getValueList();
                                         } catch (FileMakerException $e) { /* Do nothing */ }
@@ -124,7 +128,7 @@ $allFields = array_diff_key($allFields, $ignoreValues);
                                     <!-- field information -->
                                     <div class="collapse" id="collapsable<?php echo $count?>">
                                         <div class="card card-body">
-                                            This is some information!
+                                            This is some information for field <?=$fieldName?>!
                                         </div>
                                     </div>
                                 </div>
