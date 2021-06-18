@@ -78,13 +78,13 @@ function TableControllerWidget($maxResponses, $result) {
 
     echo '
         <style>
-            a {
+            a.round {
               text-decoration: none;
               display: inline-block;
               padding: 8px 16px;
             }
             
-            a:hover {
+            a.round:hover {
               background-color: #ddd;
               color: black;
             }

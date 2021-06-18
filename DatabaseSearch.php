@@ -332,18 +332,20 @@ class DatabaseSearch {
 
                     echo "
                         <th scope='row' id='data'>
-                            <a href='details.php?Database=$url'>
+                            <a href='details.php?Database=$url' role='button'>
                             " . ($hasImage ? '<span style="display:inline" id = "icon"  class="oi oi-image"></span>' : '') . "
                             <b>$id</b>
                         </th>
                     ";
                 }
-                # genus or species field for special style
-                else if (formatField($field) == 'Genus' || formatField($field) == 'Species') {
-                    echo '<td id="data" style="font-style:italic;">' . htmlspecialchars($record->getField($field)) . '</td>';
-                }
                 else {
-                    echo '<td id="data">'. $record->getField($field) . '</td>';
+                    $value = $record->getField($field);
+                    if ($value == '' or $value == null) $value = '---';
+
+                    if (formatField($field) == 'Genus' || formatField($field) == 'Species')
+                        echo '<td style="font-style: italic" class="text-center" id="data">'. $value . '</td>';
+                    else
+                        echo '<td class="text-center" id="data">'. $value . '</td>';
                 }
             }
             echo '</tr>';
@@ -375,7 +377,7 @@ class DatabaseSearch {
 
             echo "
                 <th scope='col' id=$id>
-                    <a style='padding: 0; white-space:nowrap;' href=$href>
+                    <a style='padding: 0; white-space:nowrap;' href=$href class='table-col-header' role='button'>
                         <!-- order icon -->
                         <span id='icon'  class='oi $icon_class'></span>
                         <!-- field name -->

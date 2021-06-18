@@ -59,9 +59,9 @@ if ($_GET['taxon-search'] ?? null) {
 <html lang="en">
     <head>
         <?php
-            require_once('partials/conditionalCSS.php');
             require_once('partials/widgets.php');
             HeaderWidget('Search Table');
+            require_once('partials/conditionalCSS.php');
         ?>
         <link rel="stylesheet" href="public/css/render.css">
     </head>
