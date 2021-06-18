@@ -32,9 +32,10 @@ echo "
             color: #FFFFFF;
             border-color: $color;
         }
-        button.conditional-background:hover {
+        button.conditional-background:hover, button.conditional-background:active {
             background-color: $lightColor;
             border-color: $lightColor;
+            box-shadow: 0 0 0 0.2rem $color;
         }
         
         /* Styles for text color */
@@ -43,9 +44,16 @@ echo "
         }
         
         /* Change checkbox color to light when unchecked and color when checked */
-        .checkbox-conditional-background:checked, input[type='radio']:checked.radio-conditional-background + label {
+        .checkbox-conditional-background:checked,
+        .checkbox-conditional-background:active,
+        input[type='radio']:checked.radio-conditional-background + label,
+        input[type='radio']:active.radio-conditional-background + label {
             background-color: $color;
             border-color: $color;
+        }
+        .checkbox-conditional-background:focus, 
+        input[type='radio']:focus.radio-conditional-background + label {
+            box-shadow: 0 0 0 0.2rem $color;
         }
         .checkbox-conditional-background, input[type='radio'].radio-conditional-background + label {
             background-color: $lightColor;
@@ -58,7 +66,7 @@ echo "
             color: $color;
             outline-color: $color;
         }
-        .conditional-outline-background:hover {
+        .conditional-outline-background:hover, .conditional-outline-background:focus {
             color: #FFFFFF;
             background-color: $color;
         }

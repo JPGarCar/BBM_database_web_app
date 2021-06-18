@@ -8,6 +8,7 @@
 /**
  * A title banner is a row with a title and a background color
  * @param string $databaseName
+ * @param int $paddingIndex
  */
 function TitleBanner(string $databaseName, int $paddingIndex = 2) {
     if($databaseName === "mi" || $databaseName === "miw" || $databaseName === "vwsp") {
