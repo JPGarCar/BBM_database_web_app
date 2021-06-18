@@ -80,19 +80,35 @@ if ($_GET['taxon-search'] ?? null) {
         <!-- main body with table and its widgets -->
         <div class="container-fluid flex-grow-1">
 
-            <div class="py3">
+            <div class="d-flex flex-wrap flex-row justify-content-evenly align-items-center py-2 px-1 p-md-4 gap-4">
                 <!-- review search parameters -->
                 <button type="button" data-bs-toggle="collapse" data-bs-target="#advancedSearchDiv"
-                        class="btn btn-outline-secondary order-1 order-md-0 conditional-outline-background"
+                        class="btn btn-outline-secondary conditional-outline-background"
                         >Review Search Parameters</button>
 
                 <!-- edit table columns -->
+                <button type="button" data-bs-toggle="collapse" data-bs-target="#tableColumnFilterDiv"
+                        class="btn btn-outline-secondary conditional-outline-background">Hide/Show Columns</button>
 
                 <!-- enable/disable images -->
+                <div class="btn-group">
+                    <span class="input-group-text">View Images:</span>
+                    <input type="radio" name="viewImages" id="noImages"
+                           class="btn-check radio-conditional-background" value="no" checked>
+                    <label for="noImages" class="btn btn-outline-secondary">No</label>
+
+                    <input type="radio" name="viewImages" id="yesImage"
+                           class="btn-check radio-conditional-background" value="yes">
+                    <label for="yesImage" class="btn btn-outline-secondary">Yes</label>
+                </div>
 
                 <!-- download data -->
+                    <a href="#" type="button"
+                       class="btn btn-outline-secondary conditional-outline-background">Download Data</a>
 
                 <!-- start a new search -->
+                <a href="search.php?Database=<?=DATABASE?>" type="button"
+                   class="btn btn-outline-secondary conditional-outline-background">New Search</a>
             </div>
 
             <!-- edit advanced search collapsible -->
@@ -199,20 +215,8 @@ if ($_GET['taxon-search'] ?? null) {
                 </div>
             </div>
 
-            <!-- Modify Search Button -->
-            <div class="form-group">
-                <form method=post action=<?php echo "search.php"."?Database=".htmlspecialchars(DATABASE);?>>
-                    <?php
-                    # will add the search params as hidden inputs to use in future sort or page calls
-                    foreach ($_GET as $key=>$value) {
-                        if (in_array($key, $searchLayoutFieldNames) || (in_array(str_replace('_', ' ', $key), $searchLayoutFieldNames))) {
-                            echo "<input  type=hidden value=".htmlspecialchars($value)." name=".htmlspecialchars($key).">";
-                        }
-                    }
-                    ?>
-                    <button type="submit" value = "Submit" class="btn btn-custom">Modify Search</button>
-                </form>
-            </div>
+            <!-- edit table columns -->
+            <div class="collapse w-100" id="tableColumnFilterDiv"></div>
 
             <?php $databaseSearch->echoDataTable($result); ?>
 
