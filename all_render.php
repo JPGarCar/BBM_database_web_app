@@ -48,6 +48,5 @@
         ?>
 
         <?php FooterWidget('public/images/beatyLogo.png'); ?>
-        <script src="public/js/process.js"> </script>
     </body>
 </html>

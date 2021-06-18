@@ -44,10 +44,7 @@ $allFields = array_diff_key($allFields, $ignoreValues);
             HeaderWidget('Search');
             require_once('partials/conditionalCSS.php');
         ?>
-        <link rel="stylesheet" href="public/css/search.css">
-
-        <!-- scripts -->
-        <script type="text/javascript" src="public/js/process.js"></script>
+        <link rel="stylesheet" href="public/css/advanced-search.css">
     </head>
 
     <body>
@@ -83,8 +80,8 @@ $allFields = array_diff_key($allFields, $ignoreValues);
                 </div>
             </div>
 
-            <div class="d-flex justify-content-around align-items-center px-5 py-3">
-                <div class="collapse w-100" id="advancedSearchDiv">
+            <div class="collapse w-100" id="advancedSearchDiv">
+                <div class="d-flex justify-content-around align-items-center px-5 py-3">
                     <form action="render.php" method="get" id="submit-form">
                         <!-- hidden text field containing the database name -->
                         <label>
@@ -184,5 +181,7 @@ $allFields = array_diff_key($allFields, $ignoreValues);
                 return new bootstrap.Tooltip(tooltipTriggerEl)
             })
         </script>
+        <!-- scripts for advanced search section -->
+        <script type="text/javascript" src="public/js/advanced-search.js"></script>
     </body>
 </html>

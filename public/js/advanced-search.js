@@ -1,6 +1,5 @@
 /**
- * Will set some values dynamically used for search and submit the form.
- * Will also remove any unused fields from the get request.
+ * Will remove all search fields that are not used from the URL to keep URL clean.
  */
 function submitForm() {
 
@@ -15,12 +14,5 @@ function submitForm() {
         }
     }
 
-    document.getElementById("submit-form").submit();
-}
-
-/**
- * Submits the form for the all_ package.
- */
-function All_SubmitForm() {
     document.getElementById("submit-form").submit();
 }
