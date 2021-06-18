@@ -62,60 +62,89 @@ function DatabaseCard(string $title, string $img_source, string $href, string $b
 function TableControllerWidget($maxResponses, $result) {
     $uri = $_SERVER['REQUEST_URI'];
 
-    $parts = explode('&', $uri);
-
     $amountOfRecords = $result->getFoundSetCount();
 
+    # amount of pages available
+    $maxPages = ceil($amountOfRecords / $maxResponses);
 
-    $pages = ceil($amountOfRecords / $maxResponses);
+    # get current page number
     $page = 1;
     if (isset($_GET['Page']) && $_GET['Page'] != '') {
         $page = $_GET['Page'];
     }
 
-    $pageInfo = "$amountOfRecords records found in page ".htmlspecialchars($page)." / ".htmlspecialchars($pages);
-    $maxPages = htmlspecialchars($pages);
+    $pageInfo = "$amountOfRecords records found in page ".htmlspecialchars($page)." / ".htmlspecialchars($maxPages);
 
-    echo '
-        <style>
-            a.round {
-              text-decoration: none;
-              display: inline-block;
-              padding: 8px 16px;
-            }
-            
-            a.round:hover {
-              background-color: #ddd;
-              color: black;
-            }
-        </style>
-            
+    echo ' 
         <form action="render.php" method="get" id="pageForm">
-            <div class="form-row">
-                <!-- text with num of results and pages -->
-                <div class="form-group">
-                    <p>'. $pageInfo .'</p>
-                </div>
-        
-                <!-- buttons to travel to next or previous page -->
-                <div class="form-group">
-                    ';
-    NextBackButtons($pages, $parts, $amountOfRecords, $maxResponses);
-    echo '
-                </div>
+            <!-- text with num of results and pages -->
+            <div class="">
+                <p>'. $pageInfo .'</p>
             </div>
         
-            <div class="form-row">
-                <label for="numberInput">Go to page: </label>
-                <!-- page number input -->
-                <div class="form-group mx-sm-3">
-                    <!-- TODO add value to input as current page -->
-                    <input type="number" name="Page" class="form-control" id="numberInput" min="1" max='. $maxPages .'>
-                </div>
+            <!-- page number input -->
+            <div class="input-group">
+                <!-- TODO add value to input as current page -->
+                <div class="input-group-text">Go to page:</div>
+                <input type="number" name="Page" class="form-control" id="numberInput" min="1" max='. $maxPages .' value="'. $page . '">
                 <button type="submit" form="pageForm" value="Submit" class="btn btn-custom">Go</button>
             </div>
+            
+            
         </form>
     ';
+
+    $paginationOptions = array(
+        $page - 10, $page - 5, $page - 2, $page - 1, $page,
+        $page + 1, $page + 2, $page + 5, $page + 10
+    );
+
+    $parts = explode('&', $uri);
+    unset($parts['Page']);
+    $noPageUri = implode('&', $parts);
+
+    $paginationUrls = array_map(function ($pageNum) use ($noPageUri){
+        return $noPageUri . '&Page=' . $pageNum;
+    }, $paginationOptions);
+
+    $paginationData = array_combine($paginationOptions, $paginationUrls);
+
+    $pageUrlBack = $noPageUri . '&Page=' . $page - 1;
+    $pageUrlForward = $noPageUri . '&Page=' . $page + 1;
+
+    echo " <ul class='pagination'> ";
+
+        # back button
+        if ($page - 1 <= 0)
+            echo "<li class='page-item disabled'>
+                    <a class='page-link' href='$pageUrlBack'><span>&laquo;</span></a>
+                </li>";
+        else
+            echo "<li class='page-item'>
+                    <a class='page-link' href='$pageUrlBack'><span>&laquo;</span></a>
+                </li>";
+
+            # each numbered pagination button
+            foreach ($paginationData as $pageNumber => $pageUrl) {
+                if ($pageNumber == $page)
+                    echo "<li class='page-item active'><a class='page-link' href='$pageUrl'>$pageNumber</a></li>";
+                else if ($pageNumber <= 0 or $pageNumber > $maxPages)
+                    echo "<li class='page-item disabled'><a class='page-link' href='$pageUrl'>$pageNumber</a></li>";
+                else
+                    echo "<li class='page-item'><a class='page-link' href='$pageUrl'>$pageNumber</a></li>";
+            }
+
+        # forward button
+        if ($page + 1 > $maxPages)
+            echo "<li class='page-item disabled'>
+                    <a class='page-link' href='$pageUrlForward'><span>&raquo;</span></a>
+                </li>
+            </ul>";
+        else
+            echo "<li class='page-item'>
+                    <a class='page-link' href='$pageUrlForward'><span>&raquo;</span></a>
+                </li>
+            </ul>";
 }
 
 /**
