@@ -90,70 +90,10 @@ echo "
             border-color: $color;
         }
         
+        /* Colors the highlight border of text inputs */
         .form-control:focus, .form-control-lg:focus {
             border-color: $color;
             box-shadow: 0 0 0 0.2rem $color;
-        }
-
-        a.btn-custom:hover,
-        label.btn-custom:hover,
-        input.btn-custom:hover,
-        button.btn-custom:hover,
-        .btn-custom.active,
-        .btn-custom.active:hover {
-            background-color: #49241c;
-            color: #ffffff;
-        }
-
-        .previous {
-            background-color: #f1f1f1;
-            color: black;
-            text-decoration: none;
-        }
-
-        .previous:hover {
-            text-decoration: none;
-        }
-
-        .next {
-            background-color: $color;
-            color: white;
-            text-decoration: none;
-        }
-
-        .next:hover {
-            background-color: #49241c;
-            color: white;
-            text-decoration: none;
-        }
-
-        .round {
-            border-radius: 50%;
-        }
-
-        th{
-            color: $color;
-        }
-
-        a figcaption{
-            color: $color;
-            text-decoration: none;
-        }
-
-        .imageDiv a:hover {
-            text-decoration: none;
-        }
-
-        .panel .panel-heading a h4{
-            background-color:$color;
-            color: #FFFFFF;
-            text-decoration: none;
-            padding:6px;
-        }
-
-        .panel .panel-heading a:hover, .panel .panel-heading a h4:hover {
-            background-color:#49241c;
-            text-decoration: none;
         }
 
     </style>

@@ -49,7 +49,7 @@ function DatabaseCard(string $title, string $img_source, string $href, string $b
     echo '
         <!--- '. $title .' image and link--->
         <div class="justify-content-center">
-            <a href='. $href .'>
+            <a href='. $href .' role="button" class="databaseCard">
                 <figure class="text-center" style="background: '. $background_color .'">
                     <img class="img-fluid img-sized" src='. $img_source .' alt='. $alt .'>
                     <figcaption>

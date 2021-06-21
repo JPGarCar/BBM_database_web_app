@@ -67,8 +67,6 @@ if ($_GET['taxon-search'] ?? null) {
             HeaderWidget('Search Table');
             require_once('partials/conditionalCSS.php');
         ?>
-        <link rel="stylesheet" href="public/css/render.css">
-        <link rel="stylesheet" href="public/css/advanced-search.css">
     </head>
 
     <body>
@@ -258,7 +256,7 @@ if ($_GET['taxon-search'] ?? null) {
                             <tr>
                                 <!-- row header with link to go to specimen page -->
                                 <th scope="row">
-                                    <a href="details.php?Database=<?=DATABASE?>" role="button">
+                                    <a href="details.php?Database=<?=$tableRow->getUrl()?>" role="button">
                                         <?php if ($tableRow->isHasImage()): ?>
                                             <span class="oi oi-image"></span>
                                         <?php endif; ?>

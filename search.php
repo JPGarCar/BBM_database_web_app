@@ -44,7 +44,6 @@ $allFields = array_diff_key($allFields, $ignoreValues);
             HeaderWidget('Search');
             require_once('partials/conditionalCSS.php');
         ?>
-        <link rel="stylesheet" href="public/css/advanced-search.css">
     </head>
 
     <body>

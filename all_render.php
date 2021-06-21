@@ -29,7 +29,6 @@
     }
     // exit;
 ?>
-<link rel="stylesheet" href="public/css/render.css">
 <!DOCTYPE html>
 <html>
     <head>
