@@ -6,6 +6,8 @@ use airmoi\FileMaker\Object\Field;
 require_once('utilities.php');
 require_once ('DatabaseSearch.php');
 require_once ('credentials_controller.php');
+require_once ('TableData.php');
+require_once ('TableRow.php');
 
 session_set_cookie_params(0,'/','.ubc.ca',isset($_SERVER["HTTPS"]), true);
 session_start();
@@ -80,6 +82,7 @@ if ($_GET['taxon-search'] ?? null) {
         <!-- main body with table and its widgets -->
         <div class="container-fluid flex-grow-1">
 
+            <!-- menu buttons for render table -->
             <div class="d-flex flex-wrap flex-row justify-content-evenly align-items-center py-2 px-1 p-md-4 gap-4">
                 <!-- review search parameters -->
                 <button type="button" data-bs-toggle="collapse" data-bs-target="#advancedSearchDiv"
@@ -233,14 +236,52 @@ if ($_GET['taxon-search'] ?? null) {
                 </div>
             </div>
 
-            <?php $databaseSearch->echoDataTable($result); ?>
+            <?php $tableData = new TableData($result, $databaseSearch->getResultLayout()->listFields()) ?>
 
+            <!-- render table with data -->
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <?php foreach ($tableData->getTableHeads(page: $_GET['Page'] ?? 1, databaseName: DATABASE, requestUri: $_SERVER['REQUEST_URI']) as $id => $href): ?>
+                                <th scope="col" id="<?= $id ?>" class="text-center">
+                                    <a href="<?= $href ?>" class="table-col-header" role="button">
+                                        <!-- field name -->
+                                        <b><?= $id ?></b>
+                                    </a>
+                                </th>
+                            <?php endforeach; ?>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($tableData->getTableRows(DATABASE) as $tableRow): ?>
+                            <tr>
+                                <!-- row header with link to go to specimen page -->
+                                <th scope="row">
+                                    <a href="details.php?Database=<?=DATABASE?>" role="button">
+                                        <?php if ($tableRow->isHasImage()): ?>
+                                            <span class="oi oi-image"></span>
+                                        <?php endif; ?>
+                                        <b><?= $tableRow->getId() ?></b>
+                                    </a>
+                                </th>
+
+                                <!-- all other row columns with data -->
+                                <?php foreach ($tableRow->getFields() as $field): ?>
+                                    <td class="text-center" id="data"><?= $field ?></td>
+                                <?php endforeach; ?>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- table controller -->
             <div class="p-3">
                 <?php TableControllerWidget($maxResponses, $result); ?>
             </div>
         </div>
 
-        <!-- footer -->
         <?php FooterWidget(imgSrc: 'public/images/beatyLogo.png'); ?>
 
         <!-- scripts -->
