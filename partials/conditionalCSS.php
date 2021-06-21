@@ -24,8 +24,27 @@ $lightColor = match ($_GET['Database']) {
     default => "#ff545b",
 };
 
+/**
+ * Kudos to https://stackoverflow.com/questions/15202079/convert-hex-color-to-rgb-values-in-php
+ */
+$rgbColor = sscanf($color,  "#%02x%02x%02x");
+
 echo "
     <style>
+    
+        /* text color styling */
+        .conditional-text-color {
+            color: $color;
+        }
+        .conditional-text-color:hover {
+            color: $lightColor;
+        }
+        
+        /* used for hover only conditional background color */
+        .conditional-hover-background:hover {
+            background-color: rgba($rgbColor[0], $rgbColor[1], $rgbColor[2], 0.3);
+        }
+    
         /* Styles for background and border color */
         .conditional-background {
             background-color: $color;

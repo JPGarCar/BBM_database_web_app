@@ -243,7 +243,7 @@ if ($_GET['taxon-search'] ?? null) {
                         <tr>
                             <?php foreach ($tableData->getTableHeads(page: $_GET['Page'] ?? 1, databaseName: DATABASE, requestUri: $_SERVER['REQUEST_URI']) as $id => $href): ?>
                                 <th scope="col" id="<?= $id ?>" class="text-center">
-                                    <a href="<?= $href ?>" class="table-col-header" role="button">
+                                    <a href="<?= $href ?>" class="table-col-header conditional-text-color" role="button">
                                         <!-- field name -->
                                         <b><?= $id ?></b>
                                     </a>
@@ -253,10 +253,10 @@ if ($_GET['taxon-search'] ?? null) {
                     </thead>
                     <tbody>
                         <?php foreach ($tableData->getTableRows(DATABASE) as $tableRow): ?>
-                            <tr>
+                            <tr class="conditional-hover-background">
                                 <!-- row header with link to go to specimen page -->
                                 <th scope="row">
-                                    <a href="details.php?Database=<?=$tableRow->getUrl()?>" role="button">
+                                    <a href="details.php?Database=<?=$tableRow->getUrl()?>" role="button" class="conditional-text-color">
                                         <?php if ($tableRow->isHasImage()): ?>
                                             <span class="oi oi-image"></span>
                                         <?php endif; ?>
