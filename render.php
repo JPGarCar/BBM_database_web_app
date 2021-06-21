@@ -238,7 +238,8 @@ if ($_GET['taxon-search'] ?? null) {
 
             <!-- render table with data -->
             <div class="table-responsive">
-                <table class="table table-hover table-striped">
+                <!-- id used to js -->
+                <table class="table table-hover table-striped" id="table">
                     <thead>
                         <tr>
                             <?php foreach ($tableData->getTableHeads(page: $_GET['Page'] ?? 1, databaseName: DATABASE, requestUri: $_SERVER['REQUEST_URI']) as $id => $href): ?>
