@@ -54,7 +54,7 @@ echo "
         button.conditional-background:hover, button.conditional-background:active {
             background-color: $lightColor;
             border-color: $lightColor;
-            box-shadow: 0 0 0 0.2rem $color;
+            box-shadow: 0 0 0 0.2rem rgba($rgbColor[0], $rgbColor[1], $rgbColor[2], 0.5);
         }
         
         .conditional-background-light {
@@ -84,7 +84,7 @@ echo "
         }
         .checkbox-conditional-background:focus, 
         input[type='radio']:focus.radio-conditional-background + label {
-            box-shadow: 0 0 0 0.2rem $color;
+            box-shadow: 0 0 0 0.2rem rgba($rgbColor[0], $rgbColor[1], $rgbColor[2], 0.3);
         }
         .checkbox-conditional-background, input[type='radio'].radio-conditional-background + label {
             background-color: $lightColor;
@@ -112,7 +112,16 @@ echo "
         /* Colors the highlight border of text inputs */
         .form-control:focus, .form-control-lg:focus {
             border-color: $color;
-            box-shadow: 0 0 0 0.2rem $color;
+            box-shadow: 0 0 0 0.2rem rgba($rgbColor[0], $rgbColor[1], $rgbColor[2], 0.3);
+        }
+        
+        /* Special coloring for pagination active */
+        .page-item.active .page-link {
+            background-color: $color;
+            border-color: $color;
+        }
+        .page-link:focus {
+            box-shadow: 0 0 0 0.2rem rgba($rgbColor[0], $rgbColor[1], $rgbColor[2], 0.3);
         }
 
     </style>

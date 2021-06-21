@@ -116,32 +116,32 @@ function echoPaginationButtons(int $page, string $noPageUri, float $maxPages): v
     # back button
     if ($page - 1 <= 0)
         echo "<li class='page-item disabled'>
-                    <a class='page-link' href='$pageUrlBack'><span>&laquo;</span></a>
+                    <a class='page-link conditional-text-color' href='$pageUrlBack'><span>&laquo;</span></a>
                 </li>";
     else
         echo "<li class='page-item'>
-                    <a class='page-link' href='$pageUrlBack'><span>&laquo;</span></a>
+                    <a class='page-link conditional-text-color' href='$pageUrlBack'><span>&laquo;</span></a>
                 </li>";
 
     # each numbered pagination button
     foreach ($paginationData as $pageNumber => $pageUrl) {
         if ($pageNumber == $page)
-            echo "<li class='page-item active'><a class='page-link' href='$pageUrl'>$pageNumber</a></li>";
+            echo "<li class='page-item active'><a class='page-link conditional-text-color' href='$pageUrl'>$pageNumber</a></li>";
         else if ($pageNumber <= 0 or $pageNumber > $maxPages)
-            echo "<li class='page-item disabled'><a class='page-link' href='$pageUrl'>$pageNumber</a></li>";
+            echo "<li class='page-item disabled'><a class='page-link conditional-text-color' href='$pageUrl'>$pageNumber</a></li>";
         else
-            echo "<li class='page-item'><a class='page-link' href='$pageUrl'>$pageNumber</a></li>";
+            echo "<li class='page-item'><a class='page-link conditional-text-color' href='$pageUrl'>$pageNumber</a></li>";
     }
 
     # forward button
     if ($page + 1 > $maxPages)
         echo "<li class='page-item disabled'>
-                    <a class='page-link' href='$pageUrlForward'><span>&raquo;</span></a>
+                    <a class='page-link conditional-text-color' href='$pageUrlForward'><span>&raquo;</span></a>
                 </li>
             </ul>";
     else
         echo "<li class='page-item'>
-                    <a class='page-link' href='$pageUrlForward'><span>&raquo;</span></a>
+                    <a class='page-link conditional-text-color' href='$pageUrlForward'><span>&raquo;</span></a>
                 </li>
             </ul>";
 }
