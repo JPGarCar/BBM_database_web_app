@@ -133,10 +133,10 @@ if ($_GET['taxon-search'] ?? null) {
                               * @var Field $field */
                             foreach ($searchLayoutFields as $fieldName => $field) : ?>
 
-                                <div class="px-3 py-2 py-md-1 flex-fill responsive-columns">
+                                <div class="px-3 py-2 py-md-1 flex-fill responsive-columns-3">
                                     <!-- field name and input -->
                                     <div class="input-group">
-                                        <a data-bs-toggle="collapse" href="#collapsable<?php echo $count?>" role="button">
+                                        <a data-bs-toggle="collapse" href="#collapsable<?=$count?>" role="button">
                                             <label class="input-group-text conditional-background-light"
                                                    for="field-<?php echo htmlspecialchars($fieldName)?>">
                                                 <?php echo htmlspecialchars(formatField($fieldName)) ?>
@@ -167,7 +167,7 @@ if ($_GET['taxon-search'] ?? null) {
                                         <?php endif; ?>
                                     </div>
                                     <!-- field information -->
-                                    <div class="collapse" id="collapsable<?php echo $count?>">
+                                    <div class="collapse" id="collapsable<?=$count?>">
                                         <div class="card card-body">
                                             This is some information for field <?=$fieldName?>!
                                         </div>

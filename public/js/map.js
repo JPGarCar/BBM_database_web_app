@@ -5,17 +5,20 @@ function(Map, MapView, GraphicsLayer, Graphic, Point, Circle, SpatialReference, 
     basemap: "topo",  //For full list of pre-defined basemaps, navigate to http://arcg.is/1JVo6Wd
   });
 
+  let latitude = document.getElementById("field-Latitude").value;
+  let longitude = document.getElementById("field-Longitude").value;
+
   // create a point
   var point = {
     type: "point", 
-    latitude: document.getElementById("Latitude").innerHTML,
-    longitude: document.getElementById("Longitude").innerHTML
+    latitude: latitude,
+    longitude: longitude
   };
 
   // create a circle with point and radius
   var circle = new Circle({
     center: point,
-    radius: getUncertainty(document.getElementById("Latitude").innerHTML, document.getElementById("Longitude").innerHTML),
+    radius: getUncertainty(latitude, longitude),
     geodesic: true
   });
 
@@ -51,8 +54,8 @@ function(Map, MapView, GraphicsLayer, Graphic, Point, Circle, SpatialReference, 
     container: "viewDiv",
     map: map,
     center: [
-      document.getElementById("Longitude").innerHTML, 
-      document.getElementById("Latitude").innerHTML
+      longitude,
+      latitude
     ] // longitude, latitude
   });
 
