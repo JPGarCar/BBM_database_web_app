@@ -51,7 +51,7 @@ echo "
             color: #FFFFFF;
             border-color: $color;
         }
-        button.conditional-background:hover, button.conditional-background:active {
+        button.conditional-background:hover, button.conditional-background:active, button.conditional-background:focus {
             background-color: $lightColor;
             border-color: $lightColor;
             box-shadow: 0 0 0 0.2rem rgba($rgbColor[0], $rgbColor[1], $rgbColor[2], 0.5);
@@ -62,7 +62,7 @@ echo "
             border-color: $lightColor;
             color: white;
         }
-        .conditional-background-light:hover {
+        .conditional-background-light:hover, .conditional-background-light:focus, .conditional-background-light:active {
             background-color: $color;
             border-color: $color;
         }
