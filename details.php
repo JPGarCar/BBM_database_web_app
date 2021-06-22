@@ -66,14 +66,14 @@ try {
                                 <!-- field name with a to open collapsed info -->
                                 <a data-bs-toggle="collapse" href="#collapsable<?php echo $count?>" role="button">
                                     <label class="input-group-text conditional-background-light"
-                                           for="field-<?php echo htmlspecialchars(formatField($fieldName))?>">
-                                        <?php echo htmlspecialchars(formatField($fieldName)) ?>
+                                           for="field-<?php echo htmlspecialchars(Specimen::FormatFieldName($fieldName))?>">
+                                        <?php echo htmlspecialchars(Specimen::FormatFieldName($fieldName)) ?>
                                     </label>
                                 </a>
 
                                 <!-- field value --> <!-- TODO change back id of input and label to not use formatField() -->
                                 <input class="form-control" type="text"
-                                       id="field-<?php echo htmlspecialchars(formatField($fieldName))?>"
+                                       id="field-<?php echo htmlspecialchars(Specimen::FormatFieldName($fieldName))?>"
                                        name="<?php echo htmlspecialchars($fieldName)?>"
                                        readonly disabled value="<?= $fieldValue ?>" >
                             </div>

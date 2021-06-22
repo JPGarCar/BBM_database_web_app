@@ -6,6 +6,7 @@ use airmoi\FileMaker\Object\Field;
 require_once ('utilities.php');
 require_once ('constants.php');
 require_once ('DatabaseSearch.php');
+require_once ('Specimen.php');
 
 session_set_cookie_params(0,'/','.ubc.ca',isset($_SERVER["HTTPS"]), true);
 session_start();
@@ -106,7 +107,7 @@ $allFields = array_diff_key($allFields, $ignoreValues);
                                         <a data-bs-toggle="collapse" href="#collapsable<?php echo $count?>" role="button">
                                             <label class="input-group-text conditional-background-light"
                                                    for="field-<?php echo htmlspecialchars($fieldName)?>">
-                                                <?php echo htmlspecialchars(formatField($fieldName)) ?>
+                                                <?php echo htmlspecialchars(Specimen::FormatFieldName($fieldName)) ?>
                                             </label>
                                         </a>
                                         <?php

@@ -41,14 +41,14 @@ class Specimen
         if ($id !== '') {
             $findCommand->addFindCriterion($database->getIDFieldName(), '==' . $id);
         } else {
-            throw new ErrorException(message: "Empty ID was given!");
+            throw new AssertionError(message: "Empty ID was given!");
         }
 
         $result = $findCommand->execute();
         $allRecordsFound = $result->getRecords();
 
         if (sizeof($allRecordsFound) != 1) {
-            throw new AssertionError(message: "No records or more than one records found. This is an internal error. Please contact the admin!");
+            throw new ErrorException(message: "No records or more than one records found. This is an internal error. Please contact the admin!");
         }
 
         $this->record = $allRecordsFound[0];

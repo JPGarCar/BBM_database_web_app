@@ -8,6 +8,7 @@ require_once ('DatabaseSearch.php');
 require_once ('credentials_controller.php');
 require_once ('TableData.php');
 require_once ('TableRow.php');
+require_once ('Specimen.php');
 
 session_set_cookie_params(0,'/','.ubc.ca',isset($_SERVER["HTTPS"]), true);
 session_start();
@@ -139,7 +140,7 @@ if ($_GET['taxon-search'] ?? null) {
                                         <a data-bs-toggle="collapse" href="#collapsable<?=$count?>" role="button">
                                             <label class="input-group-text conditional-background-light"
                                                    for="field-<?php echo htmlspecialchars($fieldName)?>">
-                                                <?php echo htmlspecialchars(formatField($fieldName)) ?>
+                                                <?php echo htmlspecialchars(Specimen::FormatFieldName($fieldName)) ?>
                                             </label>
                                         </a>
                                         <?php
@@ -221,14 +222,14 @@ if ($_GET['taxon-search'] ?? null) {
                 <div class="d-flex flex-wrap flex-row justify-content-around px-5 py-3 gap-3">
                     <?php foreach ($resultLayoutFieldNames as $fieldName): ?>
                         <div class="btn-group me-auto">
-                            <span class="input-group-text"><?=htmlspecialchars(formatField($fieldName))?></span>
-                            <input type="radio" name="view<?=htmlspecialchars(formatField($fieldName))?>" id="show<?=htmlspecialchars(formatField($fieldName))?>"
+                            <span class="input-group-text"><?=htmlspecialchars(Specimen::FormatFieldName($fieldName))?></span>
+                            <input type="radio" name="view<?=htmlspecialchars(Specimen::FormatFieldName($fieldName))?>" id="show<?=htmlspecialchars(Specimen::FormatFieldName($fieldName))?>"
                                    class="btn-check radio-conditional-background" value="show" checked>
-                            <label for="show<?=htmlspecialchars(formatField($fieldName))?>" class="btn btn-outline-secondary">Show</label>
+                            <label for="show<?=htmlspecialchars(Specimen::FormatFieldName($fieldName))?>" class="btn btn-outline-secondary">Show</label>
 
-                            <input type="radio" name="view<?=htmlspecialchars(formatField($fieldName))?>" id="hide<?=htmlspecialchars(formatField($fieldName))?>"
+                            <input type="radio" name="view<?=htmlspecialchars(Specimen::FormatFieldName($fieldName))?>" id="hide<?=htmlspecialchars(Specimen::FormatFieldName($fieldName))?>"
                                    class="btn-check radio-conditional-background" value="Hide">
-                            <label for="hide<?=htmlspecialchars(formatField($fieldName))?>" class="btn btn-outline-secondary">Hide</label>
+                            <label for="hide<?=htmlspecialchars(Specimen::FormatFieldName($fieldName))?>" class="btn btn-outline-secondary">Hide</label>
                         </div>
                     <?php endforeach; ?>
                 </div>

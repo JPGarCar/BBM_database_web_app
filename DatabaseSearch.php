@@ -2,6 +2,7 @@
 
 require_once('vendor/autoload.php');
 require_once ('credentials_controller.php');
+require_once ('Specimen.php');
 
 use airmoi\FileMaker\FileMaker;
 use airmoi\FileMaker\FileMakerException;
@@ -214,7 +215,7 @@ class DatabaseSearch {
             $sortBy = $sortQuery;
 
             # accession number sort is different for databases, handle it here
-            if (mapField($sortQuery) === 'Accession Number') {
+            if (Specimen::mapFieldName($sortQuery) === 'Accession Number') {
                 if ($this->name == 'vwsp' or $this->name == 'bryophytes' or
                     $this->name == 'fungi' or $this->name == 'lichen' or $this->name == 'algae') {
                     $sortBy = 'Accession Numerical';
