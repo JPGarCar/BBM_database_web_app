@@ -89,17 +89,24 @@ try {
 
                 <!-- image slideshow -->
                 <div class="col">
+                    <h3>Images:</h3>
 
                     <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-indicators">
                             <!-- loop over each image to add a button -->
-                            <button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="0" class="active"></button>
+                            <?php foreach ($specimen->getImages() as $index => $image): ?>
+                                <button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="<?=$index?>" class="<?php if ($index == 0) echo 'active' ?>"></button>
+                            <?php endforeach; ?>
                         </div>
                         <div class="carousel-inner">
                             <!-- loop over each image to add it as a carousel-item -->
-                            <div class="carousel-item active">
-                                <img src="..." class="d-block w-100" alt="..">
+                            <?php foreach ($specimen->getImages() as $index => $image): ?>
+                            <div class="carousel-item <?php if ($index == 0) echo 'active' ?>">
+                                <a href="<?=$image->getHref()?>">
+                                    <img src="<?=$image->getUrl()?>" class="d-block w-100" alt="<?=$image->getAlt()?>">
+                                </a>
                             </div>
+                            <?php endforeach; ?>
                         </div>
                         <!-- back button -->
                         <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
