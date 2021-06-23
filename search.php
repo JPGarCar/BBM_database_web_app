@@ -38,7 +38,6 @@ $allFields = array_diff_key($allFields, $ignoreValues);
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <link rel="stylesheet" href="https://herbweb.botany.ubc.ca/arcgis_js_api/library/4.10/esri/css/main.css">
         <?php
             require_once('partials/widgets.php');
 

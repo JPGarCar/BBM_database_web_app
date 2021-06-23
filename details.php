@@ -36,7 +36,6 @@ try {
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <link rel="stylesheet" href="https://herbweb.botany.ubc.ca/arcgis_js_api/library/4.10/esri/css/main.css">
         <link rel="stylesheet" href="public/css/details.css">
         <?php
             require_once ('partials/widgets.php');
@@ -66,14 +65,14 @@ try {
                                 <!-- field name with a to open collapsed info -->
                                 <a data-bs-toggle="collapse" href="#collapsable<?php echo $count?>" role="button">
                                     <label class="input-group-text conditional-background-light"
-                                           for="field-<?php echo htmlspecialchars(Specimen::FormatFieldName($fieldName))?>">
+                                           for="field-<?php echo htmlspecialchars($fieldName)?>">
                                         <?php echo htmlspecialchars(Specimen::FormatFieldName($fieldName)) ?>
                                     </label>
                                 </a>
 
-                                <!-- field value --> <!-- TODO change back id of input and label to not use formatField() -->
+                                <!-- field value -->
                                 <input class="form-control" type="text"
-                                       id="field-<?php echo htmlspecialchars(Specimen::FormatFieldName($fieldName))?>"
+                                       id="field-<?php echo htmlspecialchars($fieldName)?>"
                                        name="<?php echo htmlspecialchars($fieldName)?>"
                                        readonly disabled value="<?php echo $fieldValue == '' ? '---' : $fieldValue ?>" >
                             </div>
@@ -147,8 +146,14 @@ try {
                 <div class="col-3">
                     <?php if($specimen->getLatitude() !== null && $specimen->getLongitude() !== null) : ?>
                         <div id="viewDiv" style="height: 300px;"></div>
-                        <script src="https://herbweb.botany.ubc.ca/arcgis_js_api/library/4.10/dojo/dojo.js"></script>
-                        <script src="public/js/map.js"></script> <!-- TODO use specimen data insted of DOM data -->
+
+                        <link rel="stylesheet" href="https://js.arcgis.com/4.19/esri/themes/light/main.css">
+                        <script src="https://js.arcgis.com/4.19/"></script>
+
+                        <input hidden id="map-latitude" value="<?=$specimen->getLatitude()?>">
+                        <input hidden id="map-longitude" value="<?=$specimen->getLongitude()?>">
+                        <script type="text/javascript" src="public/js/map.js"></script>
+
                     <?php else: ?>
                         <div style="height: 300px; text-align:center; line-height:300px;">
                             <span style="">No coordinates for this record</span>
