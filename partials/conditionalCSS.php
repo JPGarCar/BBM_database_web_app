@@ -66,6 +66,17 @@ echo "
             background-color: $color;
             border-color: $color;
         }
+        .conditional-background-light-no-hover {
+            background-color: $lightColor;
+            border-color: $lightColor;
+            color: white;
+        }
+        /* had to set border-color to importat to work with thicker border classes from bootstrap */
+        .conditional-background-light-no-hover-25 {
+            background-color: rgba($rgbColor[0], $rgbColor[1], $rgbColor[2], 0.25);
+            border-color: rgba($rgbColor[0], $rgbColor[1], $rgbColor[2], 1)!important;
+            color: white;
+        }
         
         /* Styles for text color */
         .conditional-color {
