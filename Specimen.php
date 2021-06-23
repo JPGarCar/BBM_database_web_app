@@ -15,8 +15,8 @@ class Specimen
      */
     private array $images;
 
-    private ?string $latitude;
-    private ?string $longitude;
+    private ?string $latitude = null;
+    private ?string $longitude = null;
 
     private Record $record;
 
@@ -86,6 +86,7 @@ class Specimen
             "entomology" => $this->_entomologyImageSetup(),
             "avian", "herpetology", "mammal" => $this->_vertebrateImageSetup(),
             "vwsp", "bryophytes", "fungi", "lichen", "algae" => $this->_herbariumImageSetup(),
+            default => '',
         };
     }
     private function _fishImageSetup() {

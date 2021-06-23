@@ -90,47 +90,52 @@ try {
                 <!-- image slideshow -->
                 <div class="col pe-3 ps-0">
                     <div class="rounded rounded-3 border border-3 conditional-background-light-no-hover-25 p-3">
-                        <h3 class="display-6 mb-0 conditional-color">Images:</h3>
-                        <hr class="conditional-color mt-1">
-                        <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-indicators">
-                                <!-- loop over each image to add a button -->
-                                <?php foreach ($specimen->getImages() as $index => $image): ?>
-                                    <button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="<?=$index?>" class="<?php if ($index == 0) echo 'active' ?>"></button>
-                                <?php endforeach; ?>
+                        <?php if (sizeof($specimen->getImages()) > 0): ?>
+                            <h3 class="display-6 mb-0 conditional-color">Images:</h3>
+                            <hr class="conditional-color mt-1">
+                            <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-indicators">
+                                    <!-- loop over each image to add a button -->
+                                    <?php foreach ($specimen->getImages() as $index => $image): ?>
+                                        <button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="<?=$index?>" class="<?php if ($index == 0) echo 'active' ?>"></button>
+                                    <?php endforeach; ?>
+                                </div>
+                                <div class="carousel-inner rounded rounded-2">
+                                    <!-- loop over each image to add it as a carousel-item -->
+                                    <?php foreach ($specimen->getImages() as $index => $image): ?>
+                                        <div class="carousel-item <?php if ($index == 0) echo 'active' ?>">
+                                            <a href="<?=$image->getHref()?>">
+                                                <img src="<?=$image->getUrl()?>" class="d-block w-100" alt="<?=$image->getAlt()?>">
+                                            </a>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                                <!-- back button -->
+                                <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <!-- forward button -->
+                                <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
                             </div>
-                            <div class="carousel-inner rounded rounded-2">
-                                <!-- loop over each image to add it as a carousel-item -->
-                                <?php foreach ($specimen->getImages() as $index => $image): ?>
-                                    <div class="carousel-item <?php if ($index == 0) echo 'active' ?>">
-                                        <a href="<?=$image->getHref()?>">
-                                            <img src="<?=$image->getUrl()?>" class="d-block w-100" alt="<?=$image->getAlt()?>">
-                                        </a>
-                                    </div>
-                                <?php endforeach; ?>
-                            </div>
-                            <!-- back button -->
-                            <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <!-- forward button -->
-                            <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
 
-                        <div class="form-text conditional-color px-3">
-                            You can click on the images to see them in full screen and download them!
-                        </div>
-
-                        <?php if (DATABASE == 'entomology'): ?>
-                            <div class='px-2 py-3'>
-                                <a href="<?=getGenusPage($specimen->getRecord())?>" class='text-center' target='_blank'>
-                                    <button class='btn btn-custm' id='showAll'> See more of <?=$specimen->getFieldData()['Family']?> here! </button>
-                                </a>
+                            <div class="form-text conditional-color px-3">
+                                You can click on the images to see them in full screen and download them!
                             </div>
+
+                            <?php if (DATABASE == 'entomology'): ?>
+                                <div class='px-2 py-3'>
+                                    <!-- rel='noopener' for security reasons -->
+                                    <a href="<?=getGenusPage($specimen->getRecord())?>" class='text-center' target='_blank' rel="noopener">
+                                        <button class='btn btn-custm' id='showAll'> See more of <?=$specimen->getFieldData()['Family']?> here! </button>
+                                    </a>
+                                </div>
+                            <?php endif; ?>
+                        <?php else: ?>
+                            <h3 class="display-6 mb-0 conditional-color text-center">No images available for this specimen!</h3>
                         <?php endif; ?>
                     </div>
                 </div>
