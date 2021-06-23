@@ -78,6 +78,8 @@ if ($_GET['taxon-search'] ?? null) {
         <!-- Page title below navbar -->
         <?php TitleBannerRender(database: DATABASE, recordNumber: $result->getFoundSetCount()); ?>
 
+        <?php $tableData = new TableData($result, $databaseSearch->getResultLayout()->listFields()) ?>
+
         <!-- main body with table and its widgets -->
         <div class="container-fluid flex-grow-1">
 
@@ -220,7 +222,7 @@ if ($_GET['taxon-search'] ?? null) {
             <!-- edit table columns -->
             <div class="collapse w-100" id="tableColumnFilterDiv">
                 <div class="d-flex flex-wrap flex-row justify-content-around px-5 py-3 gap-3">
-                    <?php foreach ($resultLayoutFieldNames as $fieldName): ?>
+                    <?php foreach ($tableData->getUsefulFields() as $fieldName): ?>
                         <div class="btn-group me-auto">
                             <span class="input-group-text"><?=htmlspecialchars(Specimen::FormatFieldName($fieldName))?></span>
                             <input type="radio" name="view<?=htmlspecialchars(Specimen::FormatFieldName($fieldName))?>" id="show<?=htmlspecialchars(Specimen::FormatFieldName($fieldName))?>"
@@ -234,8 +236,6 @@ if ($_GET['taxon-search'] ?? null) {
                     <?php endforeach; ?>
                 </div>
             </div>
-
-            <?php $tableData = new TableData($result, $databaseSearch->getResultLayout()->listFields()) ?>
 
             <!-- render table with data -->
             <div class="table-responsive">

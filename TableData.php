@@ -108,4 +108,21 @@ class TableData
         return $rows;
     }
 
+    /**
+     * @return Result
+     */
+    public function getResult(): Result
+    {
+        return $this->result;
+    }
+
+    /**
+     * @return array
+     */
+    public function getUsefulFields(): array
+    {
+        return $this->usefulFields;
+    }
+
+
 }
