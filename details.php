@@ -89,7 +89,7 @@ try {
 
                 <!-- image slideshow -->
                 <div class="col pe-3 ps-0">
-                    <div class="rounded border border-3 conditional-background-light-no-hover-5 p-3">
+                    <div class="rounded rounded-3 border border-3 conditional-background-light-no-hover-25 p-3">
                         <h3 class="display-6 mb-0 conditional-color">Images:</h3>
                         <hr class="conditional-color mt-1">
                         <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -99,7 +99,7 @@ try {
                                     <button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="<?=$index?>" class="<?php if ($index == 0) echo 'active' ?>"></button>
                                 <?php endforeach; ?>
                             </div>
-                            <div class="carousel-inner">
+                            <div class="carousel-inner rounded rounded-2">
                                 <!-- loop over each image to add it as a carousel-item -->
                                 <?php foreach ($specimen->getImages() as $index => $image): ?>
                                     <div class="carousel-item <?php if ($index == 0) echo 'active' ?>">
@@ -126,7 +126,7 @@ try {
                         </div>
 
                         <?php if (DATABASE == 'entomology'): ?>
-                            <div class='p-2'>
+                            <div class='px-2 py-3'>
                                 <a href="<?=getGenusPage($specimen->getRecord())?>" class='text-center' target='_blank'>
                                     <button class='btn btn-custm' id='showAll'> See more of <?=$specimen->getFieldData()['Family']?> here! </button>
                                 </a>
