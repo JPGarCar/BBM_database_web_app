@@ -23,7 +23,6 @@ function TitleBannerSearch(string $database, int $paddingIndex = 2) {
             </div>
         ";
 }
-
 function TitleBannerRender(string $database, int $recordNumber) {
     $databaseName = getDatabaseName($database);
 
@@ -35,7 +34,6 @@ function TitleBannerRender(string $database, int $recordNumber) {
         </div>
     ";
 }
-
 function TitleBannerDetail(string $database, string $accessionNumber) {
     $databaseName = getDatabaseName($database);
     echo "

@@ -247,7 +247,7 @@ class DatabaseSearch {
     }
 
     /**
-     * Query FM over all taxon values with same value, and 'OR' operator.
+     * Query FM over all taxon values with same value with an 'OR' operator.
      * @param string $searchText
      * @param int $maxResponseAmount
      * @param int $pageNumber
