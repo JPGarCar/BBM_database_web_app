@@ -36,6 +36,17 @@ function TitleBannerRender(string $database, int $recordNumber) {
     ";
 }
 
+function TitleBannerDetail(string $database, string $accessionNumber) {
+    $databaseName = getDatabaseName($database);
+    echo "
+        <div class='container-fluid p-2 conditional-background text-center'>
+            <h2>
+            <b>$databaseName Collection Information for Specimen $accessionNumber</b>
+            </h2>
+        </div>
+    ";
+}
+
 /**
  * A card widget is a actionable card to represent a database in the main catalog
  *

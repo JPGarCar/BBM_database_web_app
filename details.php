@@ -50,11 +50,11 @@ try {
     <body>
         <?php Navbar(); ?>
 
-        <?php TitleBannerSearch(DATABASE); ?>
+        <?php TitleBannerDetail(DATABASE, ACCESSIONNUMBER); ?>
 
         <div class="container-fluid flex-grow-1">
             <!-- basic info plus images -->
-            <div class="row">
+            <div class="row px-1 py-3">
                 <!-- information pane -->
                 <div class="col-8 d-flex flex-column flex-md-row flex-md-wrap justify-content-center align-items-start align-items-md-end">
                     <?php
@@ -75,7 +75,7 @@ try {
                                 <input class="form-control" type="text"
                                        id="field-<?php echo htmlspecialchars(Specimen::FormatFieldName($fieldName))?>"
                                        name="<?php echo htmlspecialchars($fieldName)?>"
-                                       readonly disabled value="<?= $fieldValue ?>" >
+                                       readonly disabled value="<?php echo $fieldValue == '' ? '---' : $fieldValue ?>" >
                             </div>
                             <!-- field information -->
                             <div class="collapse" id="collapsable<?=$count?>">
@@ -123,7 +123,7 @@ try {
             </div>
 
             <!-- location map and information -->
-            <div class="row">
+            <div class="row px-1 py-3">
                 <!-- map -->
                 <div class="col-3">
                     <?php if($specimen->getLatitude() !== null && $specimen->getLongitude() !== null) : ?>
