@@ -143,22 +143,24 @@ try {
             <!-- location map and information -->
             <div class="row px-1 py-3">
                 <!-- map -->
-                <div class="col-3">
-                    <?php if($specimen->getLatitude() !== null && $specimen->getLongitude() !== null) : ?>
-                        <div id="viewDiv" style="height: 300px;"></div>
+                <div class="col-5">
+                    <div class="rounded rounded-3 border border-3 conditional-background-light-no-hover-25 p-3">
+                        <?php if($specimen->getLatitude() !== null && $specimen->getLongitude() !== null) : ?>
+                            <h3 class="display-6 mb-0 conditional-color">Map:</h3>
+                            <hr class="conditional-color mt-1">
+                            <div id="viewDiv" class="arcgis-map"></div>
 
-                        <link rel="stylesheet" href="https://js.arcgis.com/4.19/esri/themes/light/main.css">
-                        <script src="https://js.arcgis.com/4.19/"></script>
+                            <link rel="stylesheet" href="https://js.arcgis.com/4.19/esri/themes/light/main.css">
+                            <script src="https://js.arcgis.com/4.19/"></script>
 
-                        <input hidden id="map-latitude" value="<?=$specimen->getLatitude()?>">
-                        <input hidden id="map-longitude" value="<?=$specimen->getLongitude()?>">
-                        <script type="text/javascript" src="public/js/map.js"></script>
+                            <input hidden id="map-latitude" value="<?=$specimen->getLatitude()?>">
+                            <input hidden id="map-longitude" value="<?=$specimen->getLongitude()?>">
+                            <script type="text/javascript" src="public/js/map.js"></script>
 
-                    <?php else: ?>
-                        <div style="height: 300px; text-align:center; line-height:300px;">
-                            <span style="">No coordinates for this record</span>
-                        </div>
-                    <?php endif; ?>
+                        <?php else: ?>
+                            <h3 class="display-6 mb-0 conditional-color text-center">No coordinates for this record!</h3>
+                        <?php endif; ?>
+                    </div>
                 </div>
 
                 <!-- information -->

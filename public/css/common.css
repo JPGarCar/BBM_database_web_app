@@ -128,3 +128,12 @@ a[role='button'] {
         width: 50%;
     }
 }
+
+/*
+    Styles for the details page.
+ */
+
+/* we fix the height, width is set by parent */
+.arcgis-map {
+    height: 300px;
+}
