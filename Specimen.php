@@ -21,10 +21,19 @@ class Specimen
     private Record $record;
 
     /**
+     * All the regular fields that go in the main location.
      * Field Name => Field Value
      * @var string[]
      */
     private array $fieldData;
+
+    /**
+     * All the fields that are location related and thus
+     * can be placed beside the map.
+     * Field Name => Field Value
+     * @var string[]
+     */
+    private array $locationData;
 
     /**
      * Specimen constructor.
@@ -56,6 +65,7 @@ class Specimen
 
         $this->images = array();
         $this->fieldData = array();
+        $this->locationData = array();
 
         $this->produceImageUrl();
         $this->produceFieldData();
@@ -67,11 +77,28 @@ class Specimen
      * @throws FileMakerException
      */
     private function produceFieldData() {
-        foreach ($this->record->getFields() as $fieldName) {
-            $this->fieldData[$fieldName] = $this->record->getField($fieldName);
 
-            if (Specimen::formatFieldName($fieldName) === "Latitude") {$this->latitude = $this->record->getField($fieldName);}
-            if (Specimen::formatFieldName($fieldName) === "Longitude") {$this->longitude = $this->record->getField($fieldName);}
+        # get location fields
+        $locationFieldNames = match ($this->database->getName()) {
+            "entomology" => array('Country', 'Province', 'Location', 'Elevation', 'Latitude', 'Longitude'),
+            "algae", "bryophytes", "fungi", "lichen", "vwsp" => array('Country', 'ProvinceState', 'Location', 'Altitude', 'Depth', 'Geo_LatDecimal', 'Geo_LongDecimal'),
+            "avian", "herpetology", "mammal" => array("Location::country", "Location::stateProvince", "Location::locality", "Geolocation::verbatimElevation", "Geolocation::decimalLatitude", "Geolocation::decimalLongitude"),
+            "fish" => array('country', 'stateProvince', 'verbatimLocality', 'decimalLatitude', 'decimalLongitude'),
+            "miw", "mi" => array('country', 'stateProvince', 'Location', 'verbatimDepth', 'DecimalLatitude', 'DecimalLongitude', "Depth below water"),
+            "fossils" => array('country', 'stateProvince', 'locality'),
+            default => array(),
+        };
+
+        foreach ($this->record->getFields() as $fieldName) {
+
+            if (in_array($fieldName, $locationFieldNames)) {
+                $this->locationData[$fieldName] = $this->record->getField($fieldName);
+
+                if (Specimen::formatFieldName($fieldName) === "Latitude") {$this->latitude = $this->record->getField($fieldName);}
+                if (Specimen::formatFieldName($fieldName) === "Longitude") {$this->longitude = $this->record->getField($fieldName);}
+            } else {
+                $this->fieldData[$fieldName] = $this->record->getField($fieldName);
+            }
         }
     }
 
@@ -219,6 +246,15 @@ class Specimen
     {
         return $this->database;
     }
+
+    /**
+     * @return string[]
+     */
+    public function getLocationData(): array
+    {
+        return $this->locationData;
+    }
+
 
 
     /**

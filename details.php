@@ -162,9 +162,35 @@ try {
                     </div>
                 </div>
 
-                <!-- information -->
-                <div class="col">
+                <!-- information pane -->
+                <div class="col d-flex flex-column flex-md-row flex-md-wrap justify-content-center align-items-start align-items-md-end align-content-start">
+                    <?php
+                    foreach ($specimen->getLocationData() as $fieldName => $fieldValue): ?>
+                        <div class="px-3 py-2 py-md-2 flex-fill responsive-columns-2">
+                            <!-- field name and value -->
+                            <div class="input-group">
+                                <!-- field name with a to open collapsed info -->
+                                <a data-bs-toggle="collapse" href="#collapsable<?php echo $count?>" role="button">
+                                    <label class="input-group-text conditional-background-light"
+                                           for="field-<?php echo htmlspecialchars($fieldName)?>">
+                                        <?php echo htmlspecialchars(Specimen::FormatFieldName($fieldName)) ?>
+                                    </label>
+                                </a>
 
+                                <!-- field value -->
+                                <input class="form-control" type="text"
+                                       id="field-<?php echo htmlspecialchars($fieldName)?>"
+                                       name="<?php echo htmlspecialchars($fieldName)?>"
+                                       readonly disabled value="<?php echo $fieldValue == '' ? '---' : $fieldValue ?>" >
+                            </div>
+                            <!-- field information -->
+                            <div class="collapse" id="collapsable<?=$count?>">
+                                <div class="card card-body">
+                                    This is some information for field <?=$fieldName?>!
+                                </div>
+                            </div>
+                        </div>
+                        <?php $count++; endforeach; ?>
                 </div>
             </div>
         </div>
