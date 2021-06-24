@@ -31,6 +31,13 @@ try {
     header('Location: error.php');
     exit;
 }
+
+# kudos to https://stackoverflow.com/questions/2548566/go-back-to-previous-page/42143843
+$previous = "javascript:history.go(-1)";
+if(isset($_SERVER['HTTP_REFERER'])) {
+    $previous = $_SERVER['HTTP_REFERER'];
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +55,7 @@ try {
     <body>
         <?php Navbar(); ?>
 
-        <?php TitleBannerDetail(DATABASE, ACCESSIONNUMBER); ?>
+        <?php TitleBannerDetail(DATABASE, ACCESSIONNUMBER, $previous); ?>
 
         <div class="container-fluid flex-grow-1">
             <!-- basic info plus images -->

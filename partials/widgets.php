@@ -34,13 +34,22 @@ function TitleBannerRender(string $database, int $recordNumber) {
         </div>
     ";
 }
-function TitleBannerDetail(string $database, string $accessionNumber) {
+function TitleBannerDetail(string $database, string $accessionNumber, string $backHref) {
     $databaseName = getDatabaseName($database);
     echo "
-        <div class='container-fluid p-2 conditional-background text-center'>
-            <h2>
-            <b>$databaseName Collection Information for Specimen $accessionNumber</b>
-            </h2>
+        <div class='container-fluid p-2 conditional-background row g-0'>
+            <div class='col-1'>
+                <a href='$backHref' class='btn conditional-background-light-no-hover'>Back</a>
+            </div>
+            
+            <div class='col text-center'>
+                <h2>
+                    <b>$databaseName Collection Information for Specimen $accessionNumber</b>
+                </h2>
+            </div>
+            <div class='col-1'>
+                
+            </div>
         </div>
     ";
 }
