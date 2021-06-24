@@ -134,6 +134,10 @@ echo "
         .page-link:focus {
             box-shadow: 0 0 0 0.2rem rgba($rgbColor[0], $rgbColor[1], $rgbColor[2], 0.3);
         }
+       
+       .carousel-control-prev:hover, .carousel-control-next:hover {
+            background-color: rgba($rgbColor[0], $rgbColor[1], $rgbColor[2], 0.5);
+       }
 
     </style>
 ";

@@ -36,7 +36,6 @@ try {
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <link rel="stylesheet" href="public/css/details.css">
         <?php
             require_once ('partials/widgets.php');
 
@@ -126,10 +125,10 @@ try {
                             </div>
 
                             <?php if (DATABASE == 'entomology'): ?>
-                                <div class='px-2 py-3'>
+                                <div class='text-center px-2 py-3'>
                                     <!-- rel='noopener' for security reasons -->
                                     <a href="<?=getGenusPage($specimen->getRecord())?>" class='text-center' target='_blank' rel="noopener">
-                                        <button class='btn btn-custm' id='showAll'> See more of <?=$specimen->getFieldData()['Family']?> here! </button>
+                                        <button class='btn conditional-background'> See more of <?=$specimen->getFieldData()['Family']?> here! </button>
                                     </a>
                                 </div>
                             <?php endif; ?>
