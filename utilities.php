@@ -72,19 +72,6 @@ function getGenusPage(Record $record): string
 }
 
 /**
- * Special entomology function to create the genus and specie name.
- * @param Record $record
- * @return string
- * @throws FileMakerException
- */
-function getGenusSpecies(Record $record): string
-{
-    $genus = $record->getField('Genus');
-    $species = $record->getField('Species');
-    return $genus . ' ' . $species;
-}
-
-/**
  * Creates a url to point to the images. The url depends on the databse in use.
  * @param string $identifier usually the accession number or ID
  * @param string $database the database name

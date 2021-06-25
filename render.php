@@ -25,12 +25,7 @@ try {
     exit;
 }
 
-# get the fields for the search and result layout
-$searchLayoutFieldNames = $databaseSearch->getSearchLayout()->listFields();
-$resultLayoutFieldNames = $databaseSearch->getResultLayout()->listFields();
-
-$searchLayoutFields = $databaseSearch->getSearchLayout()->getFields();
-
+# TODO let user change this number
 $maxResponses = 30;
 
 # remove any empty get fields
@@ -134,7 +129,7 @@ if ($_GET['taxon-search'] ?? null) {
                             $count = 0;
                             /** @var string $fieldName
                               * @var Field $field */
-                            foreach ($searchLayoutFields as $fieldName => $field) : ?>
+                            foreach ($databaseSearch->getSearchLayout()->getFields() as $fieldName => $field) : ?>
 
                                 <div class="px-3 py-2 py-md-1 flex-fill responsive-columns-3">
                                     <!-- field name and input -->
