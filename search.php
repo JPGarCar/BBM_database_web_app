@@ -22,17 +22,6 @@ try {
     header('Location: error.php');
     exit;
 }
-
-# filter the layouts to those we only want
-$ignoreValues = ['SortNum' => '', 'Accession Numerical' => '', 'Imaged' => '', 'IIFRNo' => '',
-    'Photographs::photoFileName' => '', 'Event::eventDate' => '', 'card01' => '', 'Has Image' => '', 'imaged' => ''];
-
-$allFieldNames = array_keys($databaseSearch->getSearchLayout()->getFields());
-
-$allFields = $databaseSearch->getSearchLayout()->getFields();
-
-$allFields = array_diff_key($allFields, $ignoreValues);
-
 ?>
 
 <!DOCTYPE html>
@@ -97,7 +86,7 @@ $allFields = array_diff_key($allFields, $ignoreValues);
                             $count = 0;
                             /** @var string $fieldName
                              * @var Field $field */
-                            foreach ($allFields as $fieldName => $field) : ?>
+                            foreach ($databaseSearch->getSearchFields() as $fieldName => $field) : ?>
 
                                 <div class="px-3 py-2 py-md-1 flex-fill responsive-columns-3">
                                     <!-- field name and input -->
