@@ -15,12 +15,17 @@ define("DATABASE", $_GET['Database'] ?? null);
 
 checkDatabaseField(DATABASE);
 
-try {
-    $databaseSearch = DatabaseSearch::fromDatabaseName(DATABASE);
-} catch (FileMakerException $e) {
-    $_SESSION['error'] = 'Unsupported database given';
-    header('Location: error.php');
-    exit;
+if (isset($_SESSION['databaseSearch']) and $_SESSION['databaseSearch']->getName() == DATABASE) {
+    $databaseSearch = $_SESSION['databaseSearch'];
+} else {
+    try {
+        $databaseSearch = DatabaseSearch::fromDatabaseName(DATABASE);
+        $_SESSION['databaseSearch'] = $databaseSearch;
+    } catch (FileMakerException $e) {
+        $_SESSION['error'] = 'Unsupported database given';
+        header('Location: error.php');
+        exit;
+    }
 }
 ?>
 
