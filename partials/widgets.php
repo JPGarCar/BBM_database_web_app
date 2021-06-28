@@ -193,7 +193,7 @@ function HeaderWidget(string $title = '') {
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
-        <!-- icon -->
+        <!-- icon kudos to https://stackoverflow.com/questions/1344122/favicon-png-vs-favicon-ico-why-should-i-use-png-instead-of-ico -->
         <link rel="shortcut icon" href="public/images/favicon.ico">
         
         <!-- css stylesheets -->
