@@ -6,6 +6,12 @@
 
         # require the composer autoloader
         require_once ('vendor/autoload.php');
+        require_once ('my_autoloader.php');
+
+        try {
+            new DatabaseSearch('', '');
+        } catch (TypeError $exception) {
+        }
 
         // get the widgets
         require_once ('partials/widgets.php');

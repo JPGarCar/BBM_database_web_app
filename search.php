@@ -5,8 +5,7 @@ use airmoi\FileMaker\Object\Field;
 
 require_once ('utilities.php');
 require_once ('constants.php');
-require_once ('classes/DatabaseSearch.php');
-require_once ('classes/Specimen.php');
+require_once ('my_autoloader.php');
 
 session_set_cookie_params(0,'/','.ubc.ca',isset($_SERVER["HTTPS"]), true);
 session_start();
@@ -15,7 +14,7 @@ define("DATABASE", $_GET['Database'] ?? null);
 
 checkDatabaseField(DATABASE);
 
-if (isset($_SESSION['databaseSearch']) and $_SESSION['databaseSearch']->getName() == DATABASE) {
+if (isset($_SESSION['databaseSearch']) and ($_SESSION['databaseSearch'])->getName() == DATABASE) {
     $databaseSearch = $_SESSION['databaseSearch'];
 } else {
     try {
@@ -34,7 +33,6 @@ if (isset($_SESSION['databaseSearch']) and $_SESSION['databaseSearch']->getName(
     <head>
         <?php
             require_once('partials/widgets.php');
-
             HeaderWidget('Search');
             require_once('partials/conditionalCSS.php');
         ?>
