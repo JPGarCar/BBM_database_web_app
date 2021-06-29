@@ -2,7 +2,7 @@
 
 require_once('vendor/autoload.php');
 require_once ('credentials_controller.php');
-require_once ('Specimen.php');
+require_once ('classes/Specimen.php');
 
 use airmoi\FileMaker\FileMaker;
 use airmoi\FileMaker\FileMakerException;

@@ -4,11 +4,11 @@ use airmoi\FileMaker\FileMakerException;
 use airmoi\FileMaker\Object\Field;
 
 require_once('utilities.php');
-require_once ('DatabaseSearch.php');
+require_once ('classes/DatabaseSearch.php');
 require_once ('credentials_controller.php');
-require_once ('TableData.php');
-require_once ('TableRow.php');
-require_once ('Specimen.php');
+require_once ('classes/TableData.php');
+require_once ('classes/TableRow.php');
+require_once ('classes/Specimen.php');
 
 session_set_cookie_params(0,'/','.ubc.ca',isset($_SERVER["HTTPS"]), true);
 session_start();
