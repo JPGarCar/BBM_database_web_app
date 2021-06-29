@@ -55,8 +55,6 @@ class TableData
             $href = str_replace('%3A', ':', $href);
 
             $data[$id] = $href;
-
-            $icon_class = $sortOrder === 'Descend' ? 'oi-sort-descending' : 'oi-sort-ascending';
         }
 
         return $data;

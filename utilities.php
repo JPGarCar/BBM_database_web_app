@@ -62,13 +62,16 @@ function checkDatabaseField(?string $databaseFieldValue, bool $includeAll = fals
  * Special entomology function to create the records genus page for their website.
  * @param Record $record
  * @return string
- * @throws FileMakerException
  */
 function getGenusPage(Record $record): string
 {
-    $order = $record->getField('Order');
-    $family = $record->getField('Family');
-    return 'https://www.zoology.ubc.ca/entomology/main/'.$order.'/'.$family.'/';
+    try {
+        $order = $record->getField('Order');
+        $family = $record->getField('Family');
+        return 'https://www.zoology.ubc.ca/entomology/main/'.$order.'/'.$family.'/';
+    } catch (FileMakerException $e) {
+        return '#';
+    }
 }
 
 /**
